@@ -1,0 +1,10 @@
+## local config
+component:
+  name: 'dev_ops_user1'
+  dependsOn:
+  - '../dev_ops_group'
+
+## ci config
+ci:
+  mapping:
+  - '.'

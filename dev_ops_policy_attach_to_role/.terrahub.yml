@@ -1,0 +1,10 @@
+## local config
+component:
+  name: 'dev_ops_policy_attach_to_role'
+  dependsOn:
+  - '../dev_ops_policy'
+
+## ci config
+ci:
+  mapping:
+  - '.'

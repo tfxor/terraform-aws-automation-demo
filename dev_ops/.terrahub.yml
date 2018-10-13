@@ -1,0 +1,8 @@
+## local config
+component:
+  name: 'dev_ops'
+
+## ci config
+ci:
+  mapping:
+  - '.'
