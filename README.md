@@ -34,6 +34,9 @@ Default region name [None]: us-east-1
 Default output format [None]: json
 ```
 
+> NOTE: If you don't have AWS CLI, check out
+[installation guide](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+
 ## Get Values for Your AWS Account
 
 Run the following command in terminal:
@@ -75,7 +78,20 @@ export AWS_ACCOUNT_ID="$(aws sts get-caller-identity --output text --query 'Acco
 export AWS_DEFAULT_REGION="$(aws configure get region)"
 ```
 
-## Create TerraHub Project
+## Create Terraform Configurations Using TerraHub
+
+Run the following commands in terminal:
+```shell
+terrahub --version
+```
+
+Your output should be similar to the one below:
+```
+v0.0.28
+```
+
+> NOTE: If you don't have TerraHub CLI, check out
+[installation guide](https://www.npmjs.com/package/terrahub)
 
 Run the following commands in terminal:
 ```shell
@@ -89,7 +105,7 @@ Your output should be similar to the one below:
 ✅ Project successfully initialized
 ```
 
-## Create TerraHub Component
+## Create TerraHub Components
 
 Run the following command in terminal:
 ```shell
@@ -107,7 +123,7 @@ Your output should be similar to the one below:
 ✅ Done
 ```
 
-## Chart TerraHub Components Graph
+## Visualize TerraHub Components
 
 Run the following command in terminal:
 ```shell
