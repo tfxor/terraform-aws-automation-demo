@@ -82,12 +82,14 @@ export AWS_DEFAULT_REGION="$(aws configure get region)"
 
 Run the following commands in terminal:
 ```shell
-terrahub --version
+terrahub --help | head -3
 ```
 
 Your output should be similar to the one below:
 ```
-v0.0.28
+Usage: terrahub [command] [options]
+
+terrahub@0.0.28 (built: 2018-10-11T12:33:57.775Z)
 ```
 
 > NOTE: If you don't have TerraHub CLI, check out
