@@ -34,7 +34,7 @@ Default region name [None]: us-east-1
 Default output format [None]: json
 ```
 
-## Get Default Values for ACCOUNT_ID and REGION_ID
+## Get Values for Your AWS Account
 
 Run the following command in terminal:
 ```shell
@@ -61,7 +61,7 @@ secret_key     ****************EKEY shared-credentials-file
     region                us-east-1      config-file    /home/demo/.aws/config
 ```
 
-## Setup AWS Cloud ENV Variables
+## Setup Environment Variables (Will Be Used Later)
 
 Manual Setup (set values in double quotes and run the following command in terminal):
 ```shell
