@@ -49,14 +49,14 @@ export AWS_DEFAULT_REGION="" ## e.g. us-east-1
 
 Automated Setup (run the following command in terminal):
 ```shell
-export AWS_ACCOUNT_ID="$(aws sts get-caller-identity --output text --query 'Account')"
+export AWS_ACCOUNT_ID="$(aws sts get-caller-identity --output=text --query='Account')"
 ```
 
 ### Setup AWS_DEFAULT_REGION Programmatically
 
 Automated Setup (run the following command in terminal):
 ```shell
-export AWS_DEFAULT_REGION="$(aws configure get region)"
+export AWS_DEFAULT_REGION="$(aws configure get region --output=text)"
 ```
 
 ## Create Terraform Configurations Using TerraHub
