@@ -1,0 +1,10 @@
+## local config
+component:
+  name: 'iam_policy'
+  dependsOn:
+  - '../iam_role'
+
+## ci config
+ci:
+  mapping:
+  - '.'

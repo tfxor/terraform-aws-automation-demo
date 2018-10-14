@@ -1,0 +1,8 @@
+## local config
+component:
+  name: 'iam_role'
+
+## ci config
+ci:
+  mapping:
+  - '.'
