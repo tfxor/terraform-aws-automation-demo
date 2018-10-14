@@ -1,10 +1,18 @@
+## project config
 project:
   name: demo-terraform-aws
   code: 7356626c
   provider: aws
+  include:
+  - '.'
+  exclude:
+  - '**/.terraform/*'
+  - '**/node_modules/*'
+
+## terraform config
 terraform:
   varFile:
-    - default.tfvars
+  - default.tfvars
   var:
     account_id: 123456789012
     region: us-east-1

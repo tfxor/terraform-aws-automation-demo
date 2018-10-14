@@ -1,8 +1,8 @@
 ## local config
 component:
-  name: 'dev_ops_user1_attach_to_group'
+  name: 'iam_user_group_membership'
   dependsOn:
-  - '../dev_ops_user1'
+  - '../iam_user'
 
 ## ci config
 ci:

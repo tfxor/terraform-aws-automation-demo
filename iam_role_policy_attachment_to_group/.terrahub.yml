@@ -1,8 +1,8 @@
 ## local config
 component:
-  name: 'dev_ops_policy_attach_to_group'
+  name: 'iam_role_policy_attachment_to_group'
   dependsOn:
-  - '../dev_ops_group'
+  - '../iam_group'
 
 ## ci config
 ci:

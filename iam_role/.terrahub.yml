@@ -1,6 +1,6 @@
 ## local config
 component:
-  name: 'dev_ops'
+  name: 'iam_role'
 
 ## ci config
 ci:

@@ -1,6 +1,6 @@
 # Terraform Demo using AWS provider
 
-## To create IAM user
+## Create IAM User
 ```shell
 1. Sign in to the AWS Management Console and open the IAM console at https://console.aws.amazon.com/iam/.
 2. In the navigation pane, choose Users and then choose Add user.
@@ -12,7 +12,7 @@
 8. Choose `Create`
 ```
 
-## To get the access key ID and secret access key for an IAM user
+## Get Access Key ID and Secret Access Key for IAM User
 ```shell
 1. Open the IAM console
 2. In the navigation pane of the console, choose Users.
@@ -23,7 +23,7 @@
   - Secret access key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 ```
 
-## To config cli access
+## Config AWS CLI
 ```shell
 aws configure
 AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
@@ -32,13 +32,13 @@ Default region name [None]: us-east-1
 Default output format [None]: json
 ```
 
-## Get AWS Cloud default values for ACCOUNT_ID and REGION_ID
+## Get Default Values for ACCOUNT_ID and REGION_ID
 ```shell
 aws sts get-caller-identity --output text --query 'Account'
 aws configure get region
 ```
 
-## Setup Google Cloud ENV Variables
+## Setup AWS Cloud ENV Variables
 ```shell
 export AWS_ACCOUNT_ID=""     ## e.g. 123456789012
 export AWS_DEFAULT_REGION="" ## e.g. us-east-1
@@ -53,13 +53,13 @@ terrahub project -n demo-terraform-aws
 
 ## Create TerraHub Component
 ```shell
-terrahub component -t aws_iam_role -n dev_ops
-terrahub component -t aws_iam_policy -n dev_ops_policy -o ../dev_ops
-terrahub component -t aws_iam_role_policy_attachment -n dev_ops_policy_attach_to_role -o ../dev_ops_policy
-terrahub component -t aws_iam_group -n dev_ops_group -o ../dev_ops_policy
-terrahub component -t aws_iam_group_policy_attachment -n dev_ops_policy_attach_to_group  -o ../dev_ops_group
-terrahub component -t aws_iam_user -n dev_ops_user1 -o ../dev_ops_group
-terrahub component -t aws_iam_user_group_membership -n dev_ops_user1_attach_to_group -o ../dev_ops_user1
+terrahub component -t aws_iam_role -n iam_role
+terrahub component -t aws_iam_policy -n iam_policy -o ../iam_role
+terrahub component -t aws_iam_role_policy_attachment -n iam_role_policy_attachment_to_role -o ../iam_policy
+terrahub component -t aws_iam_group -n iam_group -o ../iam_policy
+terrahub component -t aws_iam_group_policy_attachment -n iam_role_policy_attachment_to_group  -o ../iam_group
+terrahub component -t aws_iam_user -n iam_user -o ../iam_group
+terrahub component -t aws_iam_user_group_membership -n iam_user_group_membership -o ../iam_user
 ```
 
 ## Update TerraHub Component Config
@@ -76,11 +76,11 @@ terrahub run -a -y
 ## Components graph
 ```shell
 Project: demo-terraform-aws
- └─ dev_ops [path: ./dev_ops]
-    └─ dev_ops_policy [path: ./dev_ops_policy]
-       ├─ dev_ops_group [path: ./dev_ops_group]
-       │  ├─ dev_ops_policy_attach_to_group [path: ./dev_ops_policy_attach_to_group]
-       │  └─ dev_ops_user1 [path: ./dev_ops_user1]
-       │     └─ dev_ops_user1_attach_to_group [path: ./dev_ops_user1_attach_to_group]
-       └─ dev_ops_policy_attach_to_role [path: ./dev_ops_policy_attach_to_role]
+ └─ iam_role [path: ./iam_role]
+    └─ iam_policy [path: ./iam_policy]
+       ├─ iam_group [path: ./iam_group]
+       │  ├─ iam_role_policy_attachment_to_group [path: ./iam_role_policy_attachment_to_group]
+       │  └─ iam_user [path: ./iam_user]
+       │     └─ iam_user_group_membership [path: ./iam_user_group_membership]
+       └─ iam_role_policy_attachment_to_role [path: ./iam_role_policy_attachment_to_role]
 ```
