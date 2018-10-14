@@ -37,33 +37,6 @@ Default output format [None]: json
 > NOTE: If you don't have AWS CLI, check out
 [installation guide](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 
-## Get Values for Your AWS Account
-
-Run the following command in terminal:
-```shell
-aws sts get-caller-identity --output text --query 'Account'
-```
-
-Your output should be similar to the one below:
-```
-123456789012
-```
-
-Run the following command in terminal:
-```shell
-aws configure list
-```
-
-Your output should be similar to the one below:
-```
-      Name                    Value             Type    Location
-      ----                    -----             ----    --------
-   profile                <not set>             None    None
-access_key     ****************LEID shared-credentials-file
-secret_key     ****************EKEY shared-credentials-file
-    region                us-east-1      config-file    /home/demo/.aws/config
-```
-
 ## Setup Environment Variables (Will Be Used Later)
 
 Manual Setup (set values in double quotes and run the following command in terminal):
@@ -72,9 +45,17 @@ export AWS_ACCOUNT_ID=""     ## e.g. 123456789012
 export AWS_DEFAULT_REGION="" ## e.g. us-east-1
 ```
 
+### Setup AWS_ACCOUNT_ID Programmatically
+
 Automated Setup (run the following command in terminal):
 ```shell
 export AWS_ACCOUNT_ID="$(aws sts get-caller-identity --output text --query 'Account')"
+```
+
+### Setup AWS_DEFAULT_REGION Programmatically
+
+Automated Setup (run the following command in terminal):
+```shell
 export AWS_DEFAULT_REGION="$(aws configure get region)"
 ```
 
