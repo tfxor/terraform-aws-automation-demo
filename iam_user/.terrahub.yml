@@ -1,0 +1,10 @@
+## local config
+component:
+  name: 'iam_user'
+  dependsOn:
+  - '../iam_group'
+
+## ci config
+ci:
+  mapping:
+  - '.'
