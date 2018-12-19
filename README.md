@@ -1,4 +1,4 @@
-# Terraform Demo using AWS provider
+# Terraform Automation using AWS Provider
 
 ## Create IAM User
 1. Sign in to the AWS Management Console and open the IAM console at https://console.aws.amazon.com/iam/
