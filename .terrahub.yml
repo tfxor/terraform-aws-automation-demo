@@ -1,8 +1,7 @@
 ## project config
 project:
-  name: demo-terraform-aws
+  name: demo-terraform-automation-aws
   code: 7356626c
-  provider: aws
   include:
   - '.'
   exclude:
