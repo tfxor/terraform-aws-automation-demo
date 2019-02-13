@@ -1,10 +1,30 @@
 ## local config
 component:
   name: 'iam_user'
-  dependsOn:
-  - '../iam_group'
-
-## ci config
-ci:
-  mapping:
-  - '.'
+  mapping: ['.']
+  dependsOn: ['../iam_group']
+  template:
+    resource:
+      aws_iam_user:
+          iam_user:
+            force_destroy: ${var.iam_user_force_destroy}
+            name: ${var.iam_user_name}
+            path: ${var.iam_user_path}
+    output:
+      arn:
+          value: ${aws_iam_user.iam_user.arn}
+      name:
+          value: ${aws_iam_user.iam_user.name}
+      unique_id:
+          value: ${aws_iam_user.iam_user.unique_id}
+    variable:
+      iam_user_name:
+          type: string
+      iam_user_path:
+          type: string
+      iam_user_force_destroy:
+          type: string
+    tfvars:
+      iam_user_force_destroy: "false"
+      iam_user_name: iam_user
+      iam_user_path: /

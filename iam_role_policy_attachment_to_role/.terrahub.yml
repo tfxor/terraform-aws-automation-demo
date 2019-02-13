@@ -1,10 +1,19 @@
 ## local config
 component:
   name: 'iam_role_policy_attachment_to_role'
-  dependsOn:
-  - '../iam_policy'
-
-## ci config
-ci:
-  mapping:
-  - '.'
+  mapping: ['.']
+  dependsOn: ['../iam_policy']
+  template:
+    resource:
+      aws_iam_role_policy_attachment:
+          iam_role_policy_attachment_to_role:
+            policy_arn: arn:aws:iam::${local.account_id}:policy/${var.iam_policy_name}
+            role: ${var.iam_role_name} {}
+    variable:
+      iam_role_name:
+          type: string
+      iam_policy_name:
+          type: string
+    tfvars:
+      iam_policy_name: iam_role_policy_attachment_to_role
+      iam_role_name: iam_role_policy_attachment_to_role
