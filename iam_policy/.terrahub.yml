@@ -6,44 +6,44 @@ component:
   template:
     data:
       aws_iam_policy_document:
-          iam_policy:
-            statement:
-              - sid: ${var.iam_policy_sid}
-                actions: ${split(",",var.iam_policy_actions)}
-                resources: ${split(",",var.iam_policy_resources)}
+        iam_policy:
+          statement:
+            - sid: ${var.iam_policy_sid}
+              actions: ${split(",",var.iam_policy_actions)}
+              resources: ${split(",",var.iam_policy_resources)}
     resource:
       aws_iam_policy:
-          iam_policy:
-            description: ${var.iam_policy_description}
-            name: ${var.iam_policy_name}
-            path: ${var.iam_policy_path}
-            policy: ${data.aws_iam_policy_document.iam_policy.json}
+        iam_policy:
+          description: ${var.iam_policy_description}
+          name: ${var.iam_policy_name}
+          path: ${var.iam_policy_path}
+          policy: ${data.aws_iam_policy_document.iam_policy.json}
     output:
       id:
-          value: ${aws_iam_policy.iam_policy.id}
+        value: ${aws_iam_policy.iam_policy.id}
       thub_id:
-          value: ${aws_iam_policy.iam_policy.id}
+        value: ${aws_iam_policy.iam_policy.id}
       arn:
-          value: ${aws_iam_policy.iam_policy.arn}
+        value: ${aws_iam_policy.iam_policy.arn}
       name:
-          value: ${aws_iam_policy.iam_policy.name}
+        value: ${aws_iam_policy.iam_policy.name}
       path:
-          value: ${aws_iam_policy.iam_policy.path}
+        value: ${aws_iam_policy.iam_policy.path}
       policy:
-          value: ${aws_iam_policy.iam_policy.policy}
+        value: ${aws_iam_policy.iam_policy.policy}
     variable:
       iam_policy_name:
-          type: string
+        type: string
       iam_policy_description:
-          type: string
+        type: string
       iam_policy_path:
-          type: string
+        type: string
       iam_policy_sid:
-          type: string
+        type: string
       iam_policy_actions:
-          type: string
+        type: string
       iam_policy_resources:
-          type: string
+        type: string
     tfvars:
       iam_policy_actions: lambda:*
       iam_policy_description: Managed by TerraHub

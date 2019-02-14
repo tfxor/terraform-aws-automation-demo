@@ -70,7 +70,7 @@ Your output should be similar to the one below:
 ```
 Usage: terrahub [command] [options]
 
-terrahub@0.0.28 (built: 2018-10-11T12:33:57.775Z)
+terrahub@0.1.28 (built: 2019-02-08T17:17:41.912Z)
 ```
 
 > NOTE: If you don't have TerraHub CLI, check out
@@ -129,8 +129,8 @@ Project: demo-terraform-aws
 
 Run the following command in terminal:
 ```shell
-terrahub configure -c terraform.var.account_id="${AWS_ACCOUNT_ID}"
-terrahub configure -c terraform.var.region="${AWS_DEFAULT_REGION}"
+terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
+terrahub configure -c template.locals.region="${AWS_DEFAULT_REGION}"
 ```
 
 Your output should be similar to the one below:
