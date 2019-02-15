@@ -1,8 +1,63 @@
 ## local config
 component:
   name: 'iam_role'
-
-## ci config
-ci:
-  mapping:
-  - '.'
+  mapping: ['.']
+  template:
+    data:
+      aws_iam_policy_document:
+        iam_role:
+          statement:
+            - sid: ${var.iam_role_policy_sid}
+              actions: ${var.iam_role_policy_actions}
+              effect: ${var.iam_role_policy_effect}
+              principals:
+                identifiers: ${var.iam_role_policy_principals_identifiers}
+                type: ${var.iam_role_policy_principals_type}
+    resource:
+      aws_iam_role:
+        iam_role:
+          assume_role_policy: ${data.aws_iam_policy_document.iam_role.json}
+          description: ${var.iam_role_description}
+          force_detach_policies: ${var.iam_role_force_detach_policies}
+          name: ${var.iam_role_name}
+          path: ${var.iam_role_path}
+    output:
+      arn:
+        value: ${aws_iam_role.iam_role.arn}
+      create_date:
+        value: ${aws_iam_role.iam_role.create_date}
+      unique_id:
+        value: ${aws_iam_role.iam_role.unique_id}
+      name:
+        value: ${aws_iam_role.iam_role.name}
+      description:
+        value: ${aws_iam_role.iam_role.description}
+    variable:
+      iam_role_name:
+        type: string
+      iam_role_description:
+        type: string
+      iam_role_path:
+        type: string
+      iam_role_force_detach_policies:
+        type: string
+      iam_role_policy_sid:
+        type: string
+      iam_role_policy_actions:
+        type: list
+      iam_role_policy_effect:
+        type: string
+      iam_role_policy_principals_type:
+        type: string
+      iam_role_policy_principals_identifiers:
+        type: list
+    tfvars:
+      iam_role_description: Managed by TerraHub
+      iam_role_force_detach_policies: false
+      iam_role_name: iam_role
+      iam_role_path: /
+      iam_role_policy_actions: [sts:AssumeRole]
+      iam_role_policy_effect: Allow
+      iam_role_policy_principals_identifiers: [lambda.amazonaws.com]
+      iam_role_policy_principals_type: Service
+      iam_role_policy_sid: "1"

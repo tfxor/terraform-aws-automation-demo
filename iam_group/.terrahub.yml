@@ -1,10 +1,32 @@
 ## local config
 component:
   name: 'iam_group'
-  dependsOn:
-  - '../iam_policy'
-
-## ci config
-ci:
-  mapping:
-  - '.'
+  mapping: ['.']
+  dependsOn: ['../iam_policy']
+  template:
+    resource:
+      aws_iam_group:
+        iam_group:
+          name: ${var.iam_group_name}
+          path: ${var.iam_group_path}
+    output:
+      id:
+        value: ${aws_iam_group.iam_group.id}
+      thub_id:
+        value: ${aws_iam_group.iam_group.id}
+      arn:
+        value: ${aws_iam_group.iam_group.arn}
+      name:
+        value: ${aws_iam_group.iam_group.name}
+      path:
+        value: ${aws_iam_group.iam_group.path}
+      unique_id:
+        value: ${aws_iam_group.iam_group.unique_id}
+    variable:
+      iam_group_name:
+        type: string
+      iam_group_path:
+        type: string
+    tfvars:
+      iam_group_name: iam_group
+      iam_group_path: /
