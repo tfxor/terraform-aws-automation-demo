@@ -1,0 +1,37 @@
+## local config
+component:
+  name: api_gateway_deployment
+  dependsOn: ['../api_gateway_rest_api']
+  mapping: ['.']
+  template:
+    terraform:
+      backend:
+        local:
+          path: ~/.terrahub/local_backend/api_gateway_deployment/terraform.tfstate
+    data:
+      aws_api_gateway_rest_api:
+        api_gateway_deployment:
+          name: DemoApi7356626c
+    resource:
+      aws_api_gateway_deployment:
+        api_gateway_deployment:
+          description: Managed by TerraHub
+          rest_api_id: ${data.aws_api_gateway_rest_api.api_gateway_deployment.id}
+          stage_description: ${format("%s %s", var.api_gateway_deployment_stage_description, timestamp())}
+          stage_name: demo
+    output:
+      id:
+        value: ${aws_api_gateway_deployment.api_gateway_deployment.id}
+      stage_name:
+        value: ${aws_api_gateway_deployment.api_gateway_deployment.stage_name}
+      invoke_url:
+        value: ${aws_api_gateway_deployment.api_gateway_deployment.invoke_url}
+      execution_arn:
+        value: ${aws_api_gateway_deployment.api_gateway_deployment.execution_arn}
+      created_date:
+        value: ${aws_api_gateway_deployment.api_gateway_deployment.created_date}
+    variable:
+      api_gateway_deployment_stage_description:
+        type: string
+    tfvars:
+      api_gateway_deployment_stage_description: Deployed at
