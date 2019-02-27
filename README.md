@@ -106,6 +106,19 @@ Your output should be similar to the one below:
 ✅ Done
 ```
 
+## Update Project Config
+
+Run the following command in terminal:
+```shell
+terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
+terrahub configure -c template.locals.region="${AWS_DEFAULT_REGION}"
+```
+
+Your output should be similar to the one below:
+```
+✅ Done
+```
+
 ## Customize TerraHub Component for API Gateway Deployment
 
 Run the following command in terminal:
@@ -161,19 +174,6 @@ Project: demo-terraform-aws
        │  └─ iam_user [path: ./iam_user]
        │     └─ iam_user_group_membership [path: ./iam_user_group_membership]
        └─ iam_role_policy_attachment_to_role [path: ./iam_role_policy_attachment_to_role]
-```
-
-## Update Project Config
-
-Run the following command in terminal:
-```shell
-terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
-terrahub configure -c template.locals.region="${AWS_DEFAULT_REGION}"
-```
-
-Your output should be similar to the one below:
-```
-✅ Done
 ```
 
 ## Run TerraHub Automation
