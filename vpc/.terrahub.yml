@@ -1,0 +1,47 @@
+## local config
+component:
+  name: 'vpc'
+  mapping: ['.']
+  template:
+    terraform:
+      backend:
+        local:
+          path: ~/.terrahub/local_backend/vpc/terraform.tfstate
+    resource:
+      aws_vpc:
+        vpc:
+          assign_generated_ipv6_cidr_block: true
+          cidr_block: 11.0.0.0/23
+          enable_classiclink: false
+          enable_classiclink_dns_support: false
+          enable_dns_hostnames: true
+          enable_dns_support: true
+          instance_tenancy: default
+          tags:
+          - Description: Managed by TerraHub
+            Name: demo-terraform-automation-aws
+            ThubCode: 7356626c
+            ThubEnv: default
+    output:
+      id:
+        value: ${aws_vpc.vpc.id}
+      thub_id:
+        value: ${aws_vpc.vpc.id}
+      cidr_block:
+        value: ${aws_vpc.vpc.cidr_block}
+      instance_tenancy:
+        value: ${aws_vpc.vpc.instance_tenancy}
+      enable_dns_support:
+        value: ${aws_vpc.vpc.enable_dns_support}
+      enable_dns_hostnames:
+        value: ${aws_vpc.vpc.enable_dns_hostnames}
+      enable_classiclink:
+        value: ${aws_vpc.vpc.enable_classiclink}
+      main_route_table_id:
+        value: ${aws_vpc.vpc.main_route_table_id}
+      default_network_acl_id:
+        value: ${aws_vpc.vpc.default_network_acl_id}
+      default_security_group_id:
+        value: ${aws_vpc.vpc.default_security_group_id}
+      default_route_table_id:
+        value: ${aws_vpc.vpc.default_route_table_id}

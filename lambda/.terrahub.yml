@@ -1,0 +1,55 @@
+## local config
+component:
+  name: 'lambda'  
+  dependsOn: ['../security_group', '../subnet_private']
+  mapping: ['.', '../../src/aws/job/create']
+  template:
+    terraform:
+      backend:
+        local:
+          path: ~/.terrahub/local_backend/lambda/terraform.tfstate
+    data:
+      terraform_remote_state:
+        subnet:
+          backend: local
+          config:
+            path: ~/.terrahub/local_backend/subnet_private/terraform.tfstate
+        sg:
+          backend: local
+          config:
+            path: ~/.terrahub/local_backend/security_group/terraform.tfstate
+    resource:
+      aws_lambda_function:
+        lambda:
+          filename: ${local.component["path"]}/scripts/demo.zip
+          description: Managed by TerraHub
+          function_name: DemoLambda7356626c
+          memory_size: 512
+          publish: false
+          reserved_concurrent_executions: 0
+          role: arn:aws:iam::${local.account_id}:role/DemoLambdaAWSExec7356626c
+          runtime: nodejs8.10
+          source_code_hash: ${base64sha256(file("${local.component["path"]}/scripts/demo.zip"))}
+          handler: demo.handler
+          tags:
+            - Description: Managed by TerraHub
+              Name: DemoLambda7356626c
+              ThubCode: 7356626c
+              ThubEnv: default
+          timeout: 300
+          vpc_config:
+          - security_group_ids:
+            - ${data.terraform_remote_state.sg.thub_id}
+            subnet_ids:
+            - ${data.terraform_remote_state.subnet.thub_id}
+    output:
+      arn:
+        value: ${aws_lambda_function.lambda.arn}
+      qualified_arn:
+        value: ${aws_lambda_function.lambda.qualified_arn}
+      invoke_arn:
+        value: ${aws_lambda_function.lambda.invoke_arn}
+      version:
+        value: ${aws_lambda_function.lambda.version}
+      last_modified:
+        value: ${aws_lambda_function.lambda.last_modified}
