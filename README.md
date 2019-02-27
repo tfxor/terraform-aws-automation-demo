@@ -88,7 +88,7 @@ Your output should be similar to the one below:
 ✅ Project successfully initialized
 ```
 
-## Create TerraHub Components
+## Create TerraHub Components from Templates
 
 Run the following command in terminal:
 ```shell
@@ -99,6 +99,44 @@ terrahub component -t aws_iam_role -n iam_role
 terrahub component -t aws_lambda_function -n lambda -o ../iam_role
 terrahub component -t aws_api_gateway_rest_api -n api_gateway_rest_api -o ../lambda
 terrahub component -t aws_api_gateway_deployment -n api_gateway_deployment -o ../api_gateway_rest_api
+```
+
+Your output should be similar to the one below:
+```
+✅ Done
+```
+
+## Customize TerraHub Component for API Gateway Deployment
+
+Run the following command in terminal:
+```shell
+terrahub configure -i api_gateway_deployment -c component.template.terraform.backend.local.path='~/.terrahub/local_backend/api_gateway_deployment/terraform.tfstate'
+terrahub configure -i api_gateway_deployment -c component.template.data.aws_api_gateway_rest_api.api_gateway_deployment.name='DemoApi7356626c'
+terrahub configure -i api_gateway_deployment -c component.template.resource.aws_api_gateway_deployment.api_gateway_deployment.rest_api_id='${data.aws_api_gateway_rest_api.api_gateway_deployment.id}'
+terrahub configure -i api_gateway_deployment -c component.template.resource.aws_api_gateway_deployment.api_gateway_deployment.description='Managed by TerraHub'
+terrahub configure -i api_gateway_deployment -c component.template.resource.aws_api_gateway_deployment.api_gateway_deployment.stage_description='${format("%s %s", var.api_gateway_deployment_stage_name, timestamp())}'
+terrahub configure -i api_gateway_deployment -c component.template.resource.aws_api_gateway_deployment.api_gateway_deployment.stage_name='demo'
+terrahub configure -i api_gateway_deployment -c component.template.variable.api_gateway_deployment_rest_api_id -D -y
+terrahub configure -i api_gateway_deployment -c component.template.tfvars.api_gateway_deployment_stage_name='Deployed at'
+```
+
+Your output should be similar to the one below:
+```
+✅ Done
+```
+
+## Customize TerraHub Component for API Gateway RestAPI
+
+Run the following command in terminal:
+```shell
+terrahub configure -i api_gateway_rest_api -c component.template.terraform.backend.local.path='~/.terrahub/local_backend/api_gateway_rest_api/terraform.tfstate'
+terrahub configure -i api_gateway_rest_api -c component.template.data.aws_api_gateway_rest_api.api_gateway_deployment.name='DemoApi7356626c'
+terrahub configure -i api_gateway_rest_api -c component.template.resource.aws_api_gateway_deployment.api_gateway_deployment.rest_api_id='${data.aws_api_gateway_rest_api.api_gateway_deployment.id}'
+terrahub configure -i api_gateway_rest_api -c component.template.resource.aws_api_gateway_deployment.api_gateway_deployment.description='Managed by TerraHub'
+terrahub configure -i api_gateway_rest_api -c component.template.resource.aws_api_gateway_deployment.api_gateway_deployment.stage_description='${format("%s %s", var.api_gateway_deployment_stage_name, timestamp())}'
+terrahub configure -i api_gateway_rest_api -c component.template.resource.aws_api_gateway_deployment.api_gateway_deployment.stage_name='demo'
+terrahub configure -i api_gateway_rest_api -c component.template.variable.api_gateway_deployment_rest_api_id -D -y
+terrahub configure -i api_gateway_rest_api -c component.template.tfvars.api_gateway_deployment_stage_name='Deployed at'
 ```
 
 Your output should be similar to the one below:
