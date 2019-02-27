@@ -1,6 +1,6 @@
 ## local config
 component:
-  name: 'security_group'
+  name: security_group
   dependsOn: ['../vpc']
   mapping: ['.']
   template:
@@ -24,8 +24,8 @@ component:
             protocol: -1
             self: true
             to_port: 0
-          - description: ""
-            cidr_blocks: ["0.0.0.0/0"]
+          - description: ''
+            cidr_blocks: ['0.0.0.0/0']
             from_port: 0
             protocol: -1
             to_port: 0

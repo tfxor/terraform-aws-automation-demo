@@ -1,6 +1,6 @@
 ## local config
 component:
-  name: 'vpc'
+  name: vpc
   mapping: ['.']
   template:
     terraform:

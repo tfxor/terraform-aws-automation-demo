@@ -1,7 +1,7 @@
 ## local config
 component:
-  name: 'lambda'  
-  dependsOn: ['../security_group', '../subnet_private']
+  name: lambda
+  dependsOn: ['../iam_role']
   mapping: ['.', '../../src/aws/job/create']
   template:
     terraform:
@@ -10,6 +10,10 @@ component:
           path: ~/.terrahub/local_backend/lambda/terraform.tfstate
     data:
       terraform_remote_state:
+        iam:
+          backend: local
+          config:
+            path: ~/.terrahub/local_backend/iam_role/terraform.tfstate
         subnet:
           backend: local
           config:
@@ -27,7 +31,7 @@ component:
           memory_size: 512
           publish: false
           reserved_concurrent_executions: 0
-          role: arn:aws:iam::${local.account_id}:role/DemoLambdaAWSExec7356626c
+          role: ${data.terraform_remote_state.iam.arn}
           runtime: nodejs8.10
           source_code_hash: ${base64sha256(file("${local.component["path"]}/scripts/demo.zip"))}
           handler: demo.handler

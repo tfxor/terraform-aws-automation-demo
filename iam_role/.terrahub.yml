@@ -1,12 +1,12 @@
 ## local config
 component:
-  name: iam_lambda
+  name: iam_role
   mapping: ['.']
   template:
     terraform:
       backend:
         local:
-          path: ~/.terrahub/local_backend/iam_lambda/terraform.tfstate
+          path: ~/.terrahub/local_backend/iam_role/terraform.tfstate
     data:
       aws_iam_policy_document:
         iam_role_policy:

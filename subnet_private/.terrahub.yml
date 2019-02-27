@@ -1,6 +1,6 @@
 ## local config
 component:
-  name: 'subnet_private'
+  name: subnet_private
   dependsOn: ['../vpc']
   mapping: ['.']
   template:
