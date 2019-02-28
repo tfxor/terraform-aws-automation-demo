@@ -319,5 +319,5 @@ terrahub run -a -y
 
 Run the following command in terminal:
 ```
-curl 
+curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/demo
 ```
