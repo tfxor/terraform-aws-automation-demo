@@ -32,7 +32,7 @@ component:
     terraform:
       backend:
         local:
-          path: ~/.terrahub/local_backend/iam_role/terraform.tfstate
+          path: /tmp/.terrahub/local_backend/iam_role/terraform.tfstate
     data:
       template_file:
         iam_role_policy:

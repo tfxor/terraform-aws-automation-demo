@@ -49,4 +49,4 @@ component:
     terraform:
       backend:
         local:
-          path: ~/.terrahub/local_backend/vpc/terraform.tfstate
+          path: /tmp/.terrahub/local_backend/vpc/terraform.tfstate

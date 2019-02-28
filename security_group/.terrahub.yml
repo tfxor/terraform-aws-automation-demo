@@ -15,9 +15,6 @@ component:
             - >-
               ${map("description","default VPC security group", "from_port","0",
               "protocol","-1", "self","true", "to_port","0")}
-            - >-
-              ${map("description","default VPC security group", "from_port","0",
-              "protocol","-1", "cidr_blocks",list("0.0.0.0/0"), "to_port","0")}
           ingress:
             - >-
               ${map("description","default VPC security group", "from_port","0",
@@ -46,10 +43,10 @@ component:
     terraform:
       backend:
         local:
-          path: ~/.terrahub/local_backend/security_group/terraform.tfstate
+          path: /tmp/.terrahub/local_backend/security_group/terraform.tfstate
     data:
       terraform_remote_state:
         vpc:
           backend: local
           config:
-            path: ~/.terrahub/local_backend/vpc/terraform.tfstate
+            path: /tmp/.terrahub/local_backend/vpc/terraform.tfstate

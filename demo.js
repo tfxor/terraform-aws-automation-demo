@@ -1,5 +1,8 @@
-exports.handler = (event, context, callback) => {
-    // Succeed with the string "Hello world!"
-    callback(null, 'Hello world!');
+exports.handler = async (event) => {
+    // TODO implement
+    const response = {
+        statusCode: 200,
+        body: JSON.stringify('Hello from Lambda!'),
+    };
+    return response;
 };
-
