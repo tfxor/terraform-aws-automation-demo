@@ -223,12 +223,21 @@ terrahub configure -i lambda -c component.template.data.terraform_remote_state.s
 terrahub configure -i lambda -c component.template.data.terraform_remote_state.subnet.config.path='~/.terrahub/local_backend/subnet_private/terraform.tfstate'
 terrahub configure -i lambda -c component.template.data.terraform_remote_state.sg.backend='local'
 terrahub configure -i lambda -c component.template.data.terraform_remote_state.sg.config.path='~/.terrahub/local_backend/security_group/terraform.tfstate'
-terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.
-terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.
-terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.
-terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.
-terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.
-terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.filename='${local.component["path"]}/demo.zip'
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.description='Managed by TerraHub'
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.function_name='DemoLambda7356626c'
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.memory_size='512'
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.publish='false'
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.reserved_concurrent_executions='0'
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.role='${data.terraform_remote_state.iam.arn}'
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.runtime='nodejs8.10'
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.source_code_hash='${base64sha256(file("${local.component["path"]}/demo.zip"))}'
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.handler='demo.handler'
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.timeout='300'
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.vpc_config[0]={security_group_ids}
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.vpc_config[0].security_group_ids[0]='${data.terraform_remote_state.sg.thub_id}'
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.vpc_config[0]={subnet_ids}
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.vpc_config[0].subnet_ids[0]='${data.terraform_remote_state.subnet.thub_id}'
 terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.tags='${map("Description","Managed by TerraHub", "Name","demo-terraform-automation-aws", "ThubCode","7356626c", "ThubEnv","default")}'
 ```
 
