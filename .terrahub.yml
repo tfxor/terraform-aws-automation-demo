@@ -1,11 +1,11 @@
-## project config
 project:
   name: demo-terraform-automation-aws
   code: 7356626c
-  include: ['.']
-  exclude: ['**/.terraform/*', '**/node_modules/*']
-
-## template config
+  include:
+    - .
+  exclude:
+    - '**/.terraform/*'
+    - '**/node_modules/*'
 template:
   locals:
     account_id: 123456789012
@@ -13,9 +13,9 @@ template:
   provider:
     aws:
       region: '${local.region}'
-      allowed_account_ids: ['${local.account_id}']
-
-## terraform config
+      allowed_account_ids:
+        - '${local.account_id}'
 terraform:
-  varFile: ['default.tfvars']    
+  varFile:
+    - default.tfvars
   version: 0.11.7

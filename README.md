@@ -131,6 +131,7 @@ terrahub configure -i vpc -c component.template.resource.aws_vpc.vpc.enable_clas
 terrahub configure -i vpc -c component.template.resource.aws_vpc.vpc.enable_dns_hostnames='true'
 terrahub configure -i vpc -c component.template.resource.aws_vpc.vpc.enable_dns_support='true'
 terrahub configure -i vpc -c component.template.resource.aws_vpc.vpc.instance_tenancy='default'
+terrahub configure -i vpc -c component.template.resource.aws_vpc.vpc.tags='${map("Description","Managed by TerraHub", "Name","demo-terraform-automation-aws", "ThubCode","7356626c", "ThubEnv","default")}'
 terrahub configure -i vpc -c component.template.variable -D -y
 ```
 
@@ -144,7 +145,22 @@ Your output should be similar to the one below:
 Run the following command in terminal:
 ```shell
 terrahub configure -i subnet_private -c component.template.terraform.backend.local.path='~/.terrahub/local_backend/subnet_private/terraform.tfstate'
-
+terrahub configure -i subnet_private -c component.template.data.aws_availability_zones.az={}
+terrahub configure -i subnet_private -c component.template.data.terraform_remote_state.vpc.backend='local'
+terrahub configure -i subnet_private -c component.template.data.terraform_remote_state.vpc.config.path='~/.terrahub/local_backend/vpc/terraform.tfstate'
+terrahub configure -i subnet_private -c component.template.resource.aws_subnet.subnet_private.count='${length(data.aws_availability_zones.az.names)}'
+terrahub configure -i subnet_private -c component.template.resource.aws_subnet.subnet_private.assign_ipv6_address_on_creation='false'
+terrahub configure -i subnet_private -c component.template.resource.aws_subnet.subnet_private.availability_zone='${element(data.aws_availability_zones.az.names, count.index)}'
+terrahub configure -i subnet_private -c component.template.resource.aws_subnet.subnet_private.cidr_block='${cidrsubnet("11.0.1.0/24", 4, count.index)}'
+terrahub configure -i subnet_private -c component.template.resource.aws_subnet.subnet_private.map_public_ip_on_launch='false'
+terrahub configure -i subnet_private -c component.template.resource.aws_subnet.subnet_private.tags='${map("Description","Managed by TerraHub", "Name","demo-terraform-automation-aws", "ThubCode","7356626c", "ThubEnv","default")}'
+terrahub configure -i subnet_private -c component.template.variable -D -y
+terrahub configure -i subnet_private -c component.template.output -D -y
+terrahub configure -i subnet_private -c component.template.output.id.value='${aws_subnet.subnet_private.*.id}'
+terrahub configure -i subnet_private -c component.template.output.thub_id.value='${aws_subnet.subnet_private.*.id}'
+terrahub configure -i subnet_private -c component.template.output.availability_zone.value='${aws_subnet.subnet_private.*.availability_zone}'
+terrahub configure -i subnet_private -c component.template.output.cidr_block.value='${aws_subnet.subnet_private.*.cidr_block}'
+terrahub configure -i subnet_private -c component.template.output.vpc_id.value='${aws_subnet.subnet_private.*.vpc_id}'
 ```
 
 Your output should be similar to the one below:
