@@ -119,6 +119,78 @@ Your output should be similar to the one below:
 ✅ Done
 ```
 
+## Customize TerraHub Component for VPC
+
+Run the following command in terminal:
+```shell
+terrahub configure -i vpc -c component.template.terraform.backend.local.path='~/.terrahub/local_backend/vpc/terraform.tfstate'
+terrahub configure -i vpc -c component.template.resource.aws_vpc.vpc.assign_generated_ipv6_cidr_block='true'
+terrahub configure -i vpc -c component.template.resource.aws_vpc.vpc.cidr_block='11.0.0.0/23'
+terrahub configure -i vpc -c component.template.resource.aws_vpc.vpc.enable_classiclink='false'
+terrahub configure -i vpc -c component.template.resource.aws_vpc.vpc.enable_classiclink_dns_support='false'
+terrahub configure -i vpc -c component.template.resource.aws_vpc.vpc.enable_dns_hostnames='true'
+terrahub configure -i vpc -c component.template.resource.aws_vpc.vpc.enable_dns_support='true'
+terrahub configure -i vpc -c component.template.resource.aws_vpc.vpc.instance_tenancy='default'
+terrahub configure -i vpc -c component.template.variable -D -y
+```
+
+Your output should be similar to the one below:
+```
+✅ Done
+```
+
+## Customize TerraHub Component for Subnet
+
+Run the following command in terminal:
+```shell
+terrahub configure -i subnet_private -c component.template.terraform.backend.local.path='~/.terrahub/local_backend/subnet_private/terraform.tfstate'
+
+```
+
+Your output should be similar to the one below:
+```
+✅ Done
+```
+
+## Customize TerraHub Component for Security Group
+
+Run the following command in terminal:
+```shell
+terrahub configure -i security_group -c component.template.terraform.backend.local.path='~/.terrahub/local_backend/security_group/terraform.tfstate'
+
+```
+
+Your output should be similar to the one below:
+```
+✅ Done
+```
+
+## Customize TerraHub Component for IAM Role
+
+Run the following command in terminal:
+```shell
+terrahub configure -i iam_role -c component.template.terraform.backend.local.path='~/.terrahub/local_backend/iam_role/terraform.tfstate'
+
+```
+
+Your output should be similar to the one below:
+```
+✅ Done
+```
+
+## Customize TerraHub Component for Lambda
+
+Run the following command in terminal:
+```shell
+terrahub configure -i lambda -c component.template.terraform.backend.local.path='~/.terrahub/local_backend/lambda/terraform.tfstate'
+
+```
+
+Your output should be similar to the one below:
+```
+✅ Done
+```
+
 ## Customize TerraHub Component for API Gateway RestAPI
 
 Run the following command in terminal:
