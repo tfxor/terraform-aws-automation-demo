@@ -1,7 +1,10 @@
-#  Local .terraform directories
+#  Local hidden directories
 **/.terraform/*
+**/.backup/*
 
-# .tfstate files
+# Local .tfstate files
 *.tfstate
 *.tfstate.*
 
+# Zipped lambda function
+lambda/demo.zip
