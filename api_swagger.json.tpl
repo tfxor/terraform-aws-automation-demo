@@ -22,8 +22,8 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "credentials": "arn:aws:iam::${account_id}:role/DemoLambdaAWSExec7356626c",
-          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:${account_id}:function:DemoLambda7356626c/invocations",
+          "credentials": "arn:aws:iam::${account_id}:role/DemoAWSLambdaExecRole7356626c",
+          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:${account_id}:function:DemoAWSLambda7356626c/invocations",
           "responses": {
             "default": {
               "statusCode": "200"

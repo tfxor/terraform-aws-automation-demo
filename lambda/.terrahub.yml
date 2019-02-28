@@ -10,7 +10,7 @@ component:
     resource:
       aws_lambda_function:
         lambda:
-          function_name: DemoLambda7356626c
+          function_name: DemoAWSLambda7356626c
           handler: demo.handler
           runtime: nodejs8.10
           role: '${data.terraform_remote_state.iam.arn}'
