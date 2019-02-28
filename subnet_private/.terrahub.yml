@@ -1,13 +1,27 @@
-## local config
 component:
   name: subnet_private
-  dependsOn: ['../vpc']
-  mapping: ['.']
+  mapping:
+    - .
+  dependsOn:
+    - ../vpc
   template:
+    resource:
+      aws_subnet:
+        subnet_private:
+          vpc_id: '${data.terraform_remote_state.vpc.thub_id}'
+          cidr_block: '${cidrsubnet("11.0.1.0/24", 4, count.index)}'
+          count: '${length(data.aws_availability_zones.az.names)}'
+          assign_ipv6_address_on_creation: false
+          availability_zone: '${element(data.aws_availability_zones.az.names, count.index)}'
+          map_public_ip_on_launch: false
+          tags: >-
+            ${map("Description","Managed by TerraHub",
+            "Name","demo-terraform-automation-aws", "ThubCode","7356626c",
+            "ThubEnv","default")}
     terraform:
       backend:
         local:
-          path: ~/.terrahub/local_backend/subnet_private/terraform.tfstate
+          path: /tmp/.terrahub/local_backend/subnet_private/terraform.tfstate
     data:
       aws_availability_zones:
         az: {}
@@ -15,29 +29,15 @@ component:
         vpc:
           backend: local
           config:
-            path: ~/.terrahub/local_backend/vpc/terraform.tfstate
-    resource:
-      aws_subnet:
-        subnet_private:
-          assign_ipv6_address_on_creation: false
-          availability_zone: ${element(data.aws_availability_zones.az.names, count.index)}
-          cidr_block: ${cidrsubnet("11.0.1.0/24", 4, count.index)}
-          count: ${length(data.aws_availability_zones.az.names)}
-          map_public_ip_on_launch: false
-          tags:
-          - Description: Managed by TerraHub
-            Name: demo-terraform-automation-aws
-            ThubCode: 7356626c
-            ThubEnv: default
-          vpc_id: ${data.terraform_remote_state.vpc.thub_id}
+            path: /tmp/.terrahub/local_backend/vpc/terraform.tfstate
     output:
       id:
-        value: ${aws_subnet.subnet_private.*.id}
+        value: '${aws_subnet.subnet_private.*.id}'
       thub_id:
-        value: ${aws_subnet.subnet_private.*.id}
+        value: '${aws_subnet.subnet_private.*.id}'
       availability_zone:
-        value: ${aws_subnet.subnet_private.*.availability_zone}
+        value: '${aws_subnet.subnet_private.*.availability_zone}'
       cidr_block:
-        value: ${aws_subnet.subnet_private.*.cidr_block}
+        value: '${aws_subnet.subnet_private.*.cidr_block}'
       vpc_id:
-        value: ${aws_subnet.subnet_private.*.vpc_id}
+        value: '${aws_subnet.subnet_private.*.vpc_id}'

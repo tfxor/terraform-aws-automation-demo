@@ -1,31 +1,36 @@
-## local config
 component:
   name: api_gateway_rest_api
-  dependsOn: ['../lambda']
-  mapping: ['.']
+  mapping:
+    - .
+  dependsOn:
+    - ../lambda
   template:
-    terraform:
-      backend:
-        local:
-          path: ~/.terrahub/local_backend/api_gateway_rest_api/terraform.tfstate
-    data:
-      local_file:
-        swagger:
-          filename: ${local.component["path"]}/api-swagger.json
     resource:
       aws_api_gateway_rest_api:
         api_gateway_rest_api:
-          body: ${data.local_file.swagger.content}
-          depends_on:
-          - data.local_file.swagger
-          description: Managed by TerraHub
           name: DemoApi7356626c
+          body: '${data.template_file.swagger.rendered}}'
+          description: Managed by TerraHub
     output:
       id:
-        value: ${aws_api_gateway_rest_api.api_gateway_rest_api.id}
-      created_date:
-        value: ${aws_api_gateway_rest_api.api_gateway_rest_api.created_date}
-      name:
-        value: ${aws_api_gateway_rest_api.api_gateway_rest_api.name}
+        value: '${aws_api_gateway_rest_api.api_gateway_rest_api.id}'
+      thub_id:
+        value: '${aws_api_gateway_rest_api.api_gateway_rest_api.id}'
+      root_resource_id:
+        value: '${aws_api_gateway_rest_api.api_gateway_rest_api.root_resource_id}'
       execution_arn:
-        value: ${aws_api_gateway_rest_api.api_gateway_rest_api.execution_arn}
+        value: '${aws_api_gateway_rest_api.api_gateway_rest_api.execution_arn}'
+      endpoint_configuration:
+        value: >-
+          ${aws_api_gateway_rest_api.api_gateway_rest_api.endpoint_configuration}
+      created_date:
+        value: '${aws_api_gateway_rest_api.api_gateway_rest_api.created_date}'
+    terraform:
+      backend:
+        local:
+          path: /tmp/.terrahub/local_backend/api_gateway_rest_api/terraform.tfstate
+    data:
+      template_file:
+        swagger:
+          template: '${file("${local.project["path"]}/api_swagger.json.tpl")}'
+          vars: '${map("account_id","${local.account_id}")}'

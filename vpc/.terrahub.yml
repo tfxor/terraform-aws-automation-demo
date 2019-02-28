@@ -1,47 +1,52 @@
-## local config
 component:
   name: vpc
-  mapping: ['.']
+  mapping:
+    - .
   template:
-    terraform:
-      backend:
-        local:
-          path: ~/.terrahub/local_backend/vpc/terraform.tfstate
     resource:
       aws_vpc:
         vpc:
-          assign_generated_ipv6_cidr_block: true
           cidr_block: 11.0.0.0/23
+          assign_generated_ipv6_cidr_block: true
           enable_classiclink: false
           enable_classiclink_dns_support: false
           enable_dns_hostnames: true
           enable_dns_support: true
           instance_tenancy: default
-          tags:
-          - Description: Managed by TerraHub
-            Name: demo-terraform-automation-aws
-            ThubCode: 7356626c
-            ThubEnv: default
+          tags: >-
+            ${map("Description","Managed by TerraHub",
+            "Name","demo-terraform-automation-aws", "ThubCode","7356626c",
+            "ThubEnv","default")}
     output:
       id:
-        value: ${aws_vpc.vpc.id}
+        value: '${aws_vpc.vpc.id}'
       thub_id:
-        value: ${aws_vpc.vpc.id}
-      cidr_block:
-        value: ${aws_vpc.vpc.cidr_block}
-      instance_tenancy:
-        value: ${aws_vpc.vpc.instance_tenancy}
-      enable_dns_support:
-        value: ${aws_vpc.vpc.enable_dns_support}
-      enable_dns_hostnames:
-        value: ${aws_vpc.vpc.enable_dns_hostnames}
-      enable_classiclink:
-        value: ${aws_vpc.vpc.enable_classiclink}
+        value: '${aws_vpc.vpc.id}'
       main_route_table_id:
-        value: ${aws_vpc.vpc.main_route_table_id}
+        value: '${aws_vpc.vpc.main_route_table_id}'
+      ipv6_association_id:
+        value: '${aws_vpc.vpc.ipv6_association_id}'
+      arn:
+        value: '${aws_vpc.vpc.arn}'
+      dhcp_options_id:
+        value: '${aws_vpc.vpc.dhcp_options_id}'
+      enable_classiclink:
+        value: '${aws_vpc.vpc.enable_classiclink}'
       default_network_acl_id:
-        value: ${aws_vpc.vpc.default_network_acl_id}
-      default_security_group_id:
-        value: ${aws_vpc.vpc.default_security_group_id}
+        value: '${aws_vpc.vpc.default_network_acl_id}'
       default_route_table_id:
-        value: ${aws_vpc.vpc.default_route_table_id}
+        value: '${aws_vpc.vpc.default_route_table_id}'
+      ipv6_cidr_block:
+        value: '${aws_vpc.vpc.ipv6_cidr_block}'
+      owner_id:
+        value: '${aws_vpc.vpc.owner_id}'
+      enable_dns_hostnames:
+        value: '${aws_vpc.vpc.enable_dns_hostnames}'
+      enable_classiclink_dns_support:
+        value: '${aws_vpc.vpc.enable_classiclink_dns_support}'
+      default_security_group_id:
+        value: '${aws_vpc.vpc.default_security_group_id}'
+    terraform:
+      backend:
+        local:
+          path: /tmp/.terrahub/local_backend/vpc/terraform.tfstate

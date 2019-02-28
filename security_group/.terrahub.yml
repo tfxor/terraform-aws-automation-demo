@@ -1,63 +1,52 @@
-## local config
 component:
   name: security_group
-  dependsOn: ['../vpc']
-  mapping: ['.']
+  mapping:
+    - .
+  dependsOn:
+    - ../vpc
   template:
+    resource:
+      aws_security_group:
+        security_group:
+          description: default VPC security group
+          name: demo-terraform-automation-aws
+          vpc_id: '${data.terraform_remote_state.vpc.thub_id}'
+          egress:
+            - >-
+              ${map("description","default VPC security group", "from_port","0",
+              "protocol","-1", "self","true", "to_port","0")}
+          ingress:
+            - >-
+              ${map("description","default VPC security group", "from_port","0",
+              "protocol","-1", "self","true", "to_port","0")}
+          tags: >-
+            ${map("Description","Managed by TerraHub",
+            "Name","demo-terraform-automation-aws", "ThubCode","7356626c",
+            "ThubEnv","default")}
+    output:
+      id:
+        value: '${aws_security_group.security_group.id}'
+      thub_id:
+        value: '${aws_security_group.security_group.id}'
+      ingress:
+        value: '${aws_security_group.security_group.ingress}'
+      egress:
+        value: '${aws_security_group.security_group.egress}'
+      owner_id:
+        value: '${aws_security_group.security_group.owner_id}'
+      name:
+        value: '${aws_security_group.security_group.name}'
+      vpc_id:
+        value: '${aws_security_group.security_group.vpc_id}'
+      arn:
+        value: '${aws_security_group.security_group.arn}'
     terraform:
       backend:
         local:
-          path: ~/.terrahub/local_backend/security_group/terraform.tfstate
+          path: /tmp/.terrahub/local_backend/security_group/terraform.tfstate
     data:
       terraform_remote_state:
         vpc:
           backend: local
           config:
-            path: ~/.terrahub/local_backend/vpc/terraform.tfstate
-    resource:
-      aws_security_group:
-        security_group:
-          description: default VPC security group
-          egress:
-          - description: default VPC security group
-            from_port: 0
-            protocol: -1
-            self: true
-            to_port: 0
-          - description: ''
-            cidr_blocks: ['0.0.0.0/0']
-            from_port: 0
-            protocol: -1
-            to_port: 0
-          ingress:
-          - description: default VPC security group
-            from_port: 0
-            protocol: -1
-            self: true
-            to_port: 0
-          name: demo-terraform-automation-aws
-          tags:           
-          - Description: Managed by TerraHub
-            Name: demo-terraform-automation-aws
-            ThubCode: 7356626c
-            ThubEnv: default
-          vpc_id: ${data.terraform_remote_state.vpc.thub_id}
-    output:
-      id:
-        value: ${aws_security_group.security_group.id}
-      thub_id:
-        value: ${aws_security_group.security_group.id}
-      arn:
-        value: ${aws_security_group.security_group.arn}
-      vpc_id:
-        value: ${aws_security_group.security_group.vpc_id}
-      owner_id:
-        value: ${aws_security_group.security_group.owner_id}
-      name:
-        value: ${aws_security_group.security_group.name}
-      description:
-        value: ${aws_security_group.security_group.description}
-      ingress:
-        value: ${aws_security_group.security_group.ingress}
-      egress:
-        value: ${aws_security_group.security_group.egress}
+            path: /tmp/.terrahub/local_backend/vpc/terraform.tfstate

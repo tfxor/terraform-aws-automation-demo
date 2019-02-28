@@ -1,59 +1,84 @@
-## local config
 component:
   name: lambda
-  dependsOn: ['../iam_role']
-  mapping: ['.', '../../src/aws/job/create']
+  mapping:
+    - .
+  dependsOn:
+    - ../iam_role
+    - ../security_group
+    - ../subnet_private
   template:
+    resource:
+      aws_lambda_function:
+        lambda:
+          function_name: DemoLambda7356626c
+          handler: demo.handler
+          runtime: nodejs8.10
+          role: '${data.terraform_remote_state.iam.arn}'
+          filename: '${local.component["path"]}/demo.zip'
+          description: Managed by TerraHub
+          memory_size: 512
+          publish: false
+          source_code_hash: '${base64sha256(file("${local.component["path"]}/demo.zip"))}'
+          timeout: 300
+          vpc_config:
+            security_group_ids:
+              - '${data.terraform_remote_state.sg.thub_id}'
+            subnet_ids:
+              - '${data.terraform_remote_state.subnet.thub_id}'
+          tags: >-
+            ${map("Description","Managed by TerraHub",
+            "Name","demo-terraform-automation-aws", "ThubCode","7356626c",
+            "ThubEnv","default")}
+    output:
+      id:
+        value: '${aws_lambda_function.lambda.id}'
+      thub_id:
+        value: '${aws_lambda_function.lambda.id}'
+      qualified_arn:
+        value: '${aws_lambda_function.lambda.qualified_arn}'
+      invoke_arn:
+        value: '${aws_lambda_function.lambda.invoke_arn}'
+      source_code_hash:
+        value: '${aws_lambda_function.lambda.source_code_hash}'
+      tracing_config:
+        value: '${aws_lambda_function.lambda.tracing_config}'
+      source_code_size:
+        value: '${aws_lambda_function.lambda.source_code_size}'
+      version:
+        value: '${aws_lambda_function.lambda.version}'
+      last_modified:
+        value: '${aws_lambda_function.lambda.last_modified}'
+      arn:
+        value: '${aws_lambda_function.lambda.arn}'
     terraform:
       backend:
         local:
-          path: ~/.terrahub/local_backend/lambda/terraform.tfstate
+          path: /tmp/.terrahub/local_backend/lambda/terraform.tfstate
     data:
       terraform_remote_state:
         iam:
           backend: local
           config:
-            path: ~/.terrahub/local_backend/iam_role/terraform.tfstate
+            path: /tmp/.terrahub/local_backend/iam_role/terraform.tfstate
         subnet:
           backend: local
           config:
-            path: ~/.terrahub/local_backend/subnet_private/terraform.tfstate
+            path: /tmp/.terrahub/local_backend/subnet_private/terraform.tfstate
         sg:
           backend: local
           config:
-            path: ~/.terrahub/local_backend/security_group/terraform.tfstate
-    resource:
-      aws_lambda_function:
-        lambda:
-          filename: ${local.component["path"]}/scripts/demo.zip
-          description: Managed by TerraHub
-          function_name: DemoLambda7356626c
-          memory_size: 512
-          publish: false
-          reserved_concurrent_executions: 0
-          role: ${data.terraform_remote_state.iam.arn}
-          runtime: nodejs8.10
-          source_code_hash: ${base64sha256(file("${local.component["path"]}/scripts/demo.zip"))}
-          handler: demo.handler
-          tags:
-            - Description: Managed by TerraHub
-              Name: DemoLambda7356626c
-              ThubCode: 7356626c
-              ThubEnv: default
-          timeout: 300
-          vpc_config:
-          - security_group_ids:
-            - ${data.terraform_remote_state.sg.thub_id}
-            subnet_ids:
-            - ${data.terraform_remote_state.subnet.thub_id}
-    output:
-      arn:
-        value: ${aws_lambda_function.lambda.arn}
-      qualified_arn:
-        value: ${aws_lambda_function.lambda.qualified_arn}
-      invoke_arn:
-        value: ${aws_lambda_function.lambda.invoke_arn}
-      version:
-        value: ${aws_lambda_function.lambda.version}
-      last_modified:
-        value: ${aws_lambda_function.lambda.last_modified}
+            path: /tmp/.terrahub/local_backend/security_group/terraform.tfstate
+build:
+  env:
+    variables:
+      THUB_ENV: dev
+      THUB_LAMBDA_ZIP: demo.zip
+      THUB_BUILD_PATH: ..
+      THUB_BUILD_OK: true
+  phases:
+    post_build:
+      commands:
+        - 'echo "BUILD: Running post_build step"'
+        - ./scripts/zip.sh $THUB_LAMBDA_ZIP $THUB_BUILD_PATH/demo.js
+      finally:
+        - 'echo "BUILD: post_build step successful"'
