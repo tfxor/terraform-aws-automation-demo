@@ -194,7 +194,17 @@ Your output should be similar to the one below:
 Run the following command in terminal:
 ```shell
 terrahub configure -i iam_role -c component.template.terraform.backend.local.path='~/.terrahub/local_backend/iam_role/terraform.tfstate'
-
+terrahub configure -i iam_role -c component.template.data.template_file.iam_role_policy.template='${file("${local.project["path"]}/iam_role_policy.json.tpl")}'
+terrahub configure -i iam_role -c component.template.data.template_file.iam_role_policy.vars='${map("account_id","${local.account_id}")}'
+terrahub configure -i iam_role -c component.template.resource.aws_iam_role.iam_role.assume_role_policy='${file("${local.project["path"]}/iam_trust_policy.json")}'
+terrahub configure -i iam_role -c component.template.resource.aws_iam_role.iam_role.description='Managed by TerraHub'
+terrahub configure -i iam_role -c component.template.resource.aws_iam_role.iam_role.force_detach_policies='false'
+terrahub configure -i iam_role -c component.template.resource.aws_iam_role.iam_role.name='DemoLambdaAWSExec7356626c'
+terrahub configure -i iam_role -c component.template.resource.aws_iam_role.iam_role.path='/'
+terrahub configure -i iam_role -c component.template.resource.aws_iam_role_policy.iam_role.name='DemoLambdaAWSExecPolicy7356626c'
+terrahub configure -i iam_role -c component.template.resource.aws_iam_role_policy.iam_role.policy='${data.template_file.iam_role_policy.rendered}'
+terrahub configure -i iam_role -c component.template.resource.aws_iam_role_policy.iam_role.role='${aws_iam_role.iam_role.id}'
+terrahub configure -i iam_role -c component.template.variable -D -y
 ```
 
 Your output should be similar to the one below:
@@ -207,7 +217,19 @@ Your output should be similar to the one below:
 Run the following command in terminal:
 ```shell
 terrahub configure -i lambda -c component.template.terraform.backend.local.path='~/.terrahub/local_backend/lambda/terraform.tfstate'
-
+terrahub configure -i lambda -c component.template.data.terraform_remote_state.iam.backend='local'
+terrahub configure -i lambda -c component.template.data.terraform_remote_state.iam.config.path='~/.terrahub/local_backend/iam_role/terraform.tfstate'
+terrahub configure -i lambda -c component.template.data.terraform_remote_state.subnet.backend='local'
+terrahub configure -i lambda -c component.template.data.terraform_remote_state.subnet.config.path='~/.terrahub/local_backend/subnet_private/terraform.tfstate'
+terrahub configure -i lambda -c component.template.data.terraform_remote_state.sg.backend='local'
+terrahub configure -i lambda -c component.template.data.terraform_remote_state.sg.config.path='~/.terrahub/local_backend/security_group/terraform.tfstate'
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.
+terrahub configure -i lambda -c component.template.resource.aws_lambda_function.lambda.tags='${map("Description","Managed by TerraHub", "Name","demo-terraform-automation-aws", "ThubCode","7356626c", "ThubEnv","default")}'
 ```
 
 Your output should be similar to the one below:
