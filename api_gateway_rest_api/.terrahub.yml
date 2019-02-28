@@ -1,9 +1,32 @@
-## local config
 component:
   name: api_gateway_rest_api
-  dependsOn: ['../lambda']
-  mapping: ['.']
+  mapping:
+    - .
+  dependsOn:
+    - ../lambda
   template:
+    resource:
+      aws_api_gateway_rest_api:
+        api_gateway_rest_api:
+          name: DemoApi7356626c
+          body: '${data.local_file.swagger.content}'
+          depends_on:
+            - data.local_file.swagger
+          description: Managed by TerraHub
+    output:
+      id:
+        value: '${aws_api_gateway_rest_api.api_gateway_rest_api.id}'
+      thub_id:
+        value: '${aws_api_gateway_rest_api.api_gateway_rest_api.id}'
+      root_resource_id:
+        value: '${aws_api_gateway_rest_api.api_gateway_rest_api.root_resource_id}'
+      execution_arn:
+        value: '${aws_api_gateway_rest_api.api_gateway_rest_api.execution_arn}'
+      endpoint_configuration:
+        value: >-
+          ${aws_api_gateway_rest_api.api_gateway_rest_api.endpoint_configuration}
+      created_date:
+        value: '${aws_api_gateway_rest_api.api_gateway_rest_api.created_date}'
     terraform:
       backend:
         local:
@@ -11,21 +34,4 @@ component:
     data:
       local_file:
         swagger:
-          filename: ${local.component["path"]}/api-swagger.json
-    resource:
-      aws_api_gateway_rest_api:
-        api_gateway_rest_api:
-          body: ${data.local_file.swagger.content}
-          depends_on:
-          - data.local_file.swagger
-          description: Managed by TerraHub
-          name: DemoApi7356626c
-    output:
-      id:
-        value: ${aws_api_gateway_rest_api.api_gateway_rest_api.id}
-      created_date:
-        value: ${aws_api_gateway_rest_api.api_gateway_rest_api.created_date}
-      name:
-        value: ${aws_api_gateway_rest_api.api_gateway_rest_api.name}
-      execution_arn:
-        value: ${aws_api_gateway_rest_api.api_gateway_rest_api.execution_arn}
+          filename: '${local.project["path"]}/api-swagger.json'
