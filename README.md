@@ -242,8 +242,9 @@ Your output should be similar to the one below:
 Run the following command in terminal:
 ```shell
 terrahub configure -i api_gateway_rest_api -c component.template.terraform.backend.local.path='~/.terrahub/local_backend/api_gateway_rest_api/terraform.tfstate'
-terrahub configure -i api_gateway_rest_api -c component.template.data.local_file.swagger.filename='${local.project["path"]}/api-swagger.json'
-terrahub configure -i api_gateway_rest_api -c component.template.resource.aws_api_gateway_rest_api.api_gateway_rest_api.body='${data.local_file.swagger.content}'
+terrahub configure -i api_gateway_rest_api -c component.template.data.template_file.swagger.template='${file("${local.project["path"]}/api-swagger.json.tpl")}'
+terrahub configure -i api_gateway_rest_api -c component.template.data.template_file.swagger.vars='${map("account_id","${local.account_id}")}'
+terrahub configure -i api_gateway_rest_api -c component.template.resource.aws_api_gateway_rest_api.api_gateway_rest_api.body='${data.template_file.swagger.rendered}}'
 terrahub configure -i api_gateway_rest_api -c component.template.resource.aws_api_gateway_rest_api.api_gateway_rest_api.depends_on[0]='data.local_file.swagger'
 terrahub configure -i api_gateway_rest_api -c component.template.resource.aws_api_gateway_rest_api.api_gateway_rest_api.description='Managed by TerraHub'
 terrahub configure -i api_gateway_rest_api -c component.template.resource.aws_api_gateway_rest_api.api_gateway_rest_api.name='DemoApi7356626c'

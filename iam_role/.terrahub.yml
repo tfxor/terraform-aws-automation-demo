@@ -1,21 +1,12 @@
-## local config
 component:
   name: iam_role
-  mapping: ['.']
+  mapping:
+    - .
   template:
-    terraform:
-      backend:
-        local:
-          path: ~/.terrahub/local_backend/iam_role/terraform.tfstate
-    data:
-      template_file:
-        iam_role_policy:
-          template: ${file("${local.project["path"]}/iam_role_policy.json.tpl")}
-          vars: ${map("account_id","${local.account_id}")}
     resource:
       aws_iam_role:
         iam_role:
-          assume_role_policy: ${file("${local.project["path"]}/iam_trust_policy.json")}
+          assume_role_policy: '${file("${local.project["path"]}/iam_trust_policy.json")}'
           description: Managed by TerraHub
           force_detach_policies: false
           name: DemoLambdaAWSExec7356626c
@@ -23,16 +14,27 @@ component:
       aws_iam_role_policy:
         iam_role:
           name: DemoLambdaAWSExecPolicy7356626c
-          policy: ${data.template_file.iam_role_policy.rendered}
-          role: ${aws_iam_role.iam_role.id}
+          policy: '${data.template_file.iam_role_policy.rendered}'
+          role: '${aws_iam_role.iam_role.id}'
     output:
-      arn:
-        value: ${aws_iam_role.iam_role.arn}
+      id:
+        value: '${aws_iam_role.iam_role.id}'
+      thub_id:
+        value: '${aws_iam_role.iam_role.id}'
       create_date:
-        value: ${aws_iam_role.iam_role.create_date}
+        value: '${aws_iam_role.iam_role.create_date}'
       unique_id:
-        value: ${aws_iam_role.iam_role.unique_id}
+        value: '${aws_iam_role.iam_role.unique_id}'
       name:
-        value: ${aws_iam_role.iam_role.name}
-      description:
-        value: ${aws_iam_role.iam_role.description}
+        value: '${aws_iam_role.iam_role.name}'
+      arn:
+        value: '${aws_iam_role.iam_role.arn}'
+    terraform:
+      backend:
+        local:
+          path: ~/.terrahub/local_backend/iam_role/terraform.tfstate
+    data:
+      template_file:
+        iam_role_policy:
+          template: '${file("${local.project["path"]}/iam_role_policy.json.tpl")}'
+          vars: '${map("account_id","${local.account_id}")}'

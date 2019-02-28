@@ -9,7 +9,7 @@ component:
       aws_api_gateway_rest_api:
         api_gateway_rest_api:
           name: DemoApi7356626c
-          body: '${data.local_file.swagger.content}'
+          body: '${data.template_file.swagger.rendered}'
           depends_on:
             - data.local_file.swagger
           description: Managed by TerraHub
@@ -32,6 +32,7 @@ component:
         local:
           path: ~/.terrahub/local_backend/api_gateway_rest_api/terraform.tfstate
     data:
-      local_file:
+      template_file:
         swagger:
-          filename: '${local.project["path"]}/api-swagger.json'
+          template: '${file("${local.project["path"]}/api-swagger.json.tpl")}'
+          vars: '${map("account_id","${local.account_id}")}'
