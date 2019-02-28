@@ -173,7 +173,15 @@ Your output should be similar to the one below:
 Run the following command in terminal:
 ```shell
 terrahub configure -i security_group -c component.template.terraform.backend.local.path='~/.terrahub/local_backend/security_group/terraform.tfstate'
-
+terrahub configure -i security_group -c component.template.data.terraform_remote_state.vpc.backend='local'
+terrahub configure -i security_group -c component.template.data.terraform_remote_state.vpc.config.path='~/.terrahub/local_backend/vpc/terraform.tfstate'
+terrahub configure -i security_group -c component.template.resource.aws_security_group.security_group.description='default VPC security group'
+terrahub configure -i security_group -c component.template.resource.aws_security_group.security_group.name='demo-terraform-automation-aws'
+terrahub configure -i security_group -c component.template.resource.aws_security_group.security_group.vpc_id='${data.terraform_remote_state.vpc.thub_id}'
+terrahub configure -i security_group -c component.template.resource.aws_security_group.security_group.egress[0]='${map("description","default VPC security group", "from_port","0", "protocol","-1", "self","true", "to_port","0")}'
+terrahub configure -i security_group -c component.template.resource.aws_security_group.security_group.egress[1]='${map("description","default VPC security group", "from_port","0", "protocol","-1", "cidr_blocks",list("0.0.0.0/0"), "to_port","0")}'
+terrahub configure -i security_group -c component.template.resource.aws_security_group.security_group.ingress[0]='${map("description","default VPC security group", "from_port","0", "protocol","-1", "self","true", "to_port","0")}'
+terrahub configure -i security_group -c component.template.resource.aws_security_group.security_group.tags='${map("Description","Managed by TerraHub", "Name","demo-terraform-automation-aws", "ThubCode","7356626c", "ThubEnv","default")}'
 ```
 
 Your output should be similar to the one below:
