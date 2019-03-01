@@ -92,13 +92,13 @@ Your output should be similar to the one below:
 
 Run the following command in terminal:
 ```shell
-terrahub component -t aws_vpc -n vpc
-terrahub component -t aws_subnet -n subnet_private -o ../vpc
-terrahub component -t aws_security_group -n security_group -o ../vpc
-terrahub component -t aws_iam_role -n iam_role
-terrahub component -t aws_lambda_function -n lambda -o ../iam_role,../security_group,../subnet_private
-terrahub component -t aws_api_gateway_rest_api -n api_gateway_rest_api -o ../lambda
-terrahub component -t aws_api_gateway_deployment -n api_gateway_deployment -o ../api_gateway_rest_api
+terrahub component -t aws_vpc -n vpc \
+&& terrahub component -t aws_subnet -n subnet_private -o ../vpc \
+&& terrahub component -t aws_security_group -n security_group -o ../vpc \
+&& terrahub component -t aws_iam_role -n iam_role \
+&& terrahub component -t aws_lambda_function -n lambda -o ../iam_role,../security_group,../subnet_private \
+&& terrahub component -t aws_api_gateway_rest_api -n api_gateway_rest_api -o ../lambda \
+&& terrahub component -t aws_api_gateway_deployment -n api_gateway_deployment -o ../api_gateway_rest_api
 ```
 
 Your output should be similar to the one below:
