@@ -7,4 +7,4 @@
 *.tfstate.*
 
 # Zipped lambda function
-lambda/demo.zip
+lambda/demo.*
