@@ -70,7 +70,7 @@ Your output should be similar to the one below:
 ```
 Usage: terrahub [command] [options]
 
-terrahub@0.1.28 (built: 2019-02-08T17:17:41.912Z)
+terrahub@0.0.1 (built: 2018-04-07T19:15:39.787Z)
 ```
 
 > NOTE: If you don't have TerraHub CLI, check out
@@ -78,9 +78,9 @@ terrahub@0.1.28 (built: 2019-02-08T17:17:41.912Z)
 
 Run the following commands in terminal:
 ```shell
-mkdir demo-terraform-aws
-cd demo-terraform-aws
-terrahub project -n demo-terraform-aws
+mkdir demo-terraform-automation-aws
+cd demo-terraform-automation-aws
+terrahub project -n demo-terraform-automation-aws
 ```
 
 Your output should be similar to the one below:
