@@ -6,6 +6,11 @@ project:
   exclude:
     - '**/.terraform/*'
     - '**/node_modules/*'
+    - '**/.git/**'
+terraform:
+  varFile:
+    - default.tfvars
+  version: 0.11.11
 template:
   locals:
     account_id: 123456789012
@@ -15,7 +20,3 @@ template:
       region: '${local.region}'
       allowed_account_ids:
         - '${local.account_id}'
-terraform:
-  varFile:
-    - default.tfvars
-  version: 0.11.7
