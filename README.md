@@ -194,7 +194,7 @@ Your output should be similar to the one below:
 Run the following command in terminal:
 ```shell
 terrahub configure -i iam_role -c component.template.terraform.backend.local.path='/tmp/.terrahub/local_backend/iam_role/terraform.tfstate'
-terrahub configure -i iam_role -c component.template.data.template_file.iam_role_policy.template='${file("${local.project["path"]}/iam_role_policy.json.tpl")}'
+terrahub configure -i iam_role -c component.template.data.template_file.iam_role_policy.template='${file("${local.project["path"]}/iam_assume_policy.json.tpl")}'
 terrahub configure -i iam_role -c component.template.data.template_file.iam_role_policy.vars='${map("account_id","${local.account_id}")}'
 terrahub configure -i iam_role -c component.template.resource.aws_iam_role.iam_role.assume_role_policy='${file("${local.project["path"]}/iam_trust_policy.json.tpl")}'
 terrahub configure -i iam_role -c component.template.resource.aws_iam_role.iam_role.description='Managed by TerraHub'

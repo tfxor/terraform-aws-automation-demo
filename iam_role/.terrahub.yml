@@ -36,5 +36,5 @@ component:
     data:
       template_file:
         iam_role_policy:
-          template: '${file("${local.project["path"]}/iam_role_policy.json.tpl")}'
+          template: '${file("${local.project["path"]}/iam_assume_policy.json.tpl")}'
           vars: '${map("account_id","${local.account_id}")}'
