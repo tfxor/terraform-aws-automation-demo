@@ -113,8 +113,8 @@ Run the following commands in terminal:
 terrahub configure -c terraform.version=0.11.11
 terrahub configure -c template.provider.aws.region='${local.region}'
 terrahub configure -c template.provider.aws.allowed_account_ids[0]='${local.account_id}'
-terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
 terrahub configure -c template.locals.region="${AWS_DEFAULT_REGION}"
+terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
 ```
 
 Your output should be similar to the one below:
