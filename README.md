@@ -117,6 +117,22 @@ repository, follow the instructions for `Update Project Config` and skip down to
 `Visualize TerraHub Components`. This way you will fast forward through terrahub
 components creation and customization, and switch directly to the automation part.
 
+## Update TerraHub's Project Config
+
+Run the following commands in terminal:
+```shell
+terrahub configure -c terraform.version=0.11.11
+terrahub configure -c template.provider.aws.region='${local.region}'
+terrahub configure -c template.provider.aws.allowed_account_ids[0]='${local.account_id}'
+terrahub configure -c template.locals.region="${AWS_DEFAULT_REGION}"
+terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
+```
+
+Your output should be similar to the one below:
+```
+✅ Done
+```
+
 ## Create TerraHub Components from Templates
 
 Run the following command in terminal:
@@ -128,22 +144,6 @@ terrahub component -t aws_vpc -n vpc \
 && terrahub component -t aws_lambda_function -n lambda -o ../iam_role,../security_group,../subnet_private \
 && terrahub component -t aws_api_gateway_rest_api -n api_gateway_rest_api -o ../lambda \
 && terrahub component -t aws_api_gateway_deployment -n api_gateway_deployment -o ../api_gateway_rest_api
-```
-
-Your output should be similar to the one below:
-```
-✅ Done
-```
-
-## Update Project Config
-
-Run the following commands in terminal:
-```shell
-terrahub configure -c terraform.version=0.11.11
-terrahub configure -c template.provider.aws.region='${local.region}'
-terrahub configure -c template.provider.aws.allowed_account_ids[0]='${local.account_id}'
-terrahub configure -c template.locals.region="${AWS_DEFAULT_REGION}"
-terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
 ```
 
 Your output should be similar to the one below:
