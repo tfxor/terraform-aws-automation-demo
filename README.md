@@ -1,4 +1,20 @@
-# Terraform Automation using AWS Provider
+# Terraform Automation Demo using AWS Cloud Provider
+
+The purpose of this repository is to show case terraform automation for AWS
+Cloud. This demo will provision the following cloud resources associated to
+corresponding terraform configurations:
+
+| AWS Resource | Terraform Resource | Link to TerraHub Config |
+|-----------------------|--------------------|-------------------------|
+| API Gateway Deployment | aws_api_gateway_deployment | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/api_gateway_deployment/.terrahub.yml#L9 |
+| API Gateway REST API | aws_api_gateway_rest_api | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/api_gateway_rest_api/.terrahub.yml#L9 |
+| IAM Role | aws_iam_role | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/iam_role/.terrahub.yml#L8 |
+| Lambda Function | aws_lambda_function | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/lambda/.terrahub.yml#L11 |
+| Security Group | aws_security_group | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/security_group/.terrahub.yml#L9 |
+| Subnet | aws_subnet | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/subnet_private/.terrahub.yml#L9 |
+| VPC | aws_vpc | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/vpc/.terrahub.yml#L7 |
+
+Follow below instructions to try this out in your own AWS Cloud account.
 
 ## Create IAM User
 1. Sign in to the AWS Management Console and open the IAM console at https://console.aws.amazon.com/iam/
@@ -39,7 +55,7 @@ Default output format [None]: json
 
 ## Setup Environment Variables (Will Be Used Later)
 
-Manual Setup (set values in double quotes and run the following command in terminal):
+Manual Setup (set values in double quotes and run the following commands in terminal):
 ```shell
 export AWS_ACCOUNT_ID=""     ## e.g. 123456789012
 export AWS_DEFAULT_REGION="" ## e.g. us-east-1
@@ -59,7 +75,12 @@ Automated Setup (run the following command in terminal):
 export AWS_DEFAULT_REGION="$(aws configure get region --output=text)"
 ```
 
-## Create Terraform Configurations Using TerraHub
+## Terraform Automation and Orchestration Tool
+
+The next couple of paragraphs are show casing the process of creating terraform
+configurations using [TerraHub CLI](https://github.com/TerraHubCorp/terrahub).
+We have opted to use YML format instead of HCL because it's easier and faster
+to customize and automate terraform runs (see `terrahub component` command).
 
 Run the following commands in terminal:
 ```shell
@@ -76,6 +97,8 @@ terrahub@0.0.1 (built: 2018-04-07T19:15:39.787Z)
 > NOTE: If you don't have TerraHub CLI, check out
 [installation guide](https://www.npmjs.com/package/terrahub)
 
+## Build Terraform Configurations
+
 Run the following commands in terminal:
 ```shell
 mkdir demo-terraform-automation-aws
@@ -87,6 +110,12 @@ Your output should be similar to the one below:
 ```
 ✅ Project successfully initialized
 ```
+
+> NOTE: If you want to jump directly to terraform automation part of the demo,
+instead of creating `demo-terraform-automation-aws` from scratch, clone current
+repository, follow the instructions for `Update Project Config` and skip down to
+`Visualize TerraHub Components`. This way you will fast forward through terrahub
+components creation and customization, and switch directly to the automation part.
 
 ## Create TerraHub Components from Templates
 
@@ -108,13 +137,13 @@ Your output should be similar to the one below:
 
 ## Update Project Config
 
-Run the following command in terminal:
+Run the following commands in terminal:
 ```shell
 terrahub configure -c terraform.version=0.11.11
 terrahub configure -c template.provider.aws.region='${local.region}'
 terrahub configure -c template.provider.aws.allowed_account_ids[0]='${local.account_id}'
-terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
 terrahub configure -c template.locals.region="${AWS_DEFAULT_REGION}"
+terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
 ```
 
 Your output should be similar to the one below:
@@ -124,7 +153,7 @@ Your output should be similar to the one below:
 
 ## Customize TerraHub Component for VPC
 
-Run the following command in terminal:
+Run the following commands in terminal:
 ```shell
 terrahub configure -i vpc -c component.template.terraform.backend.local.path='/tmp/.terrahub/local_backend/vpc/terraform.tfstate'
 terrahub configure -i vpc -c component.template.resource.aws_vpc.vpc.assign_generated_ipv6_cidr_block='true'
@@ -145,7 +174,7 @@ Your output should be similar to the one below:
 
 ## Customize TerraHub Component for Subnet
 
-Run the following command in terminal:
+Run the following commands in terminal:
 ```shell
 terrahub configure -i subnet_private -c component.template.terraform.backend.local.path='/tmp/.terrahub/local_backend/subnet_private/terraform.tfstate'
 terrahub configure -i subnet_private -c component.template.data.aws_availability_zones.az={}
@@ -174,7 +203,7 @@ Your output should be similar to the one below:
 
 ## Customize TerraHub Component for Security Group
 
-Run the following command in terminal:
+Run the following commands in terminal:
 ```shell
 terrahub configure -i security_group -c component.template.terraform.backend.local.path='/tmp/.terrahub/local_backend/security_group/terraform.tfstate'
 terrahub configure -i security_group -c component.template.data.terraform_remote_state.vpc.backend='local'
@@ -194,7 +223,7 @@ Your output should be similar to the one below:
 
 ## Customize TerraHub Component for IAM Role
 
-Run the following command in terminal:
+Run the following commands in terminal:
 ```shell
 terrahub configure -i iam_role -c component.template.terraform.backend.local.path='/tmp/.terrahub/local_backend/iam_role/terraform.tfstate'
 terrahub configure -i iam_role -c component.template.data.template_file.iam_role_policy.template='${file("${local.project["path"]}/iam_assume_policy.json.tpl")}'
@@ -217,7 +246,7 @@ Your output should be similar to the one below:
 
 ## Customize TerraHub Component for Lambda
 
-Run the following command in terminal:
+Run the following commands in terminal:
 ```shell
 terrahub configure -i lambda -c component.template.terraform.backend.local.path='/tmp/.terrahub/local_backend/lambda/terraform.tfstate'
 terrahub configure -i lambda -c component.template.data.terraform_remote_state.iam.backend='local'
@@ -256,7 +285,7 @@ Your output should be similar to the one below:
 
 ## Customize TerraHub Component for API Gateway RestAPI
 
-Run the following command in terminal:
+Run the following commands in terminal:
 ```shell
 terrahub configure -i api_gateway_rest_api -c component.template.terraform.backend.local.path='/tmp/.terrahub/local_backend/api_gateway_rest_api/terraform.tfstate'
 terrahub configure -i api_gateway_rest_api -c component.template.data.template_file.swagger.template='${file("${local.project["path"]}/api_swagger.json.tpl")}'
@@ -274,7 +303,7 @@ Your output should be similar to the one below:
 
 ## Customize TerraHub Component for API Gateway Deployment
 
-Run the following command in terminal:
+Run the following commands in terminal:
 ```shell
 terrahub configure -i api_gateway_deployment -c component.template.terraform.backend.local.path='/tmp/.terrahub/local_backend/api_gateway_deployment/terraform.tfstate'
 terrahub configure -i api_gateway_deployment -c component.template.data.aws_api_gateway_rest_api.api_gateway_deployment.name='DemoApi7356626c'
@@ -312,15 +341,33 @@ Project: demo-terraform-automation-aws
 
 ## Run TerraHub Automation
 
+### Prepare Source Code for Deployment
+
 Run the following command in terminal:
+
 ```shell
 terrahub build -i lambda
-terrahub run -a -y
 ```
 
-## Run Test Command
+Your output should be similar to the one below:
+```
+```
+
+### Run TerraHub Automation
 
 Run the following command in terminal:
+
+```shell
+terrahub run -y -a
+```
+
+Your output should be similar to the one below:
+```
+```
+
+## Testing Deployed Cloud Resources
+
+Check if backend was deployed successfully. Run the following command in terminal:
 ```
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/demo
 ```
