@@ -1,5 +1,21 @@
 # Terraform Automation Demo using AWS Cloud Provider
 
+The purpose of this repository is to show case terraform automation for AWS
+Cloud. This demo will provision the following cloud resources associated to
+corresponding terraform configurations:
+
+| AWS Resource | Terraform Resource | Link to TerraHub Config |
+|-----------------------|--------------------|-------------------------|
+| API Gateway Deployment | aws_api_gateway_deployment | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/api_gateway_deployment/.terrahub.yml#L9 |
+| API Gateway REST API | aws_api_gateway_rest_api | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/api_gateway_rest_api/.terrahub.yml#L9 |
+| IAM Role | aws_iam_role | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/iam_role/.terrahub.yml#L8 |
+| Lambda Function | aws_lambda_function | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/lambda/.terrahub.yml#L11 |
+| Security Group | aws_security_group | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/security_group/.terrahub.yml#L9 |
+| Subnet | aws_subnet | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/subnet_private/.terrahub.yml#L9 |
+| VPC | aws_vpc | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/vpc/.terrahub.yml#L7 |
+
+Follow below instructions to try this out in your own AWS Cloud account.
+
 ## Create IAM User
 1. Sign in to the AWS Management Console and open the IAM console at https://console.aws.amazon.com/iam/
 2. In the navigation pane, choose Users and then choose Add user
@@ -59,7 +75,12 @@ Automated Setup (run the following command in terminal):
 export AWS_DEFAULT_REGION="$(aws configure get region --output=text)"
 ```
 
-## Create Terraform Configurations Using TerraHub
+## Terraform Automation and Orchestration Tool
+
+The next couple of paragraphs are show casing the process of creating terraform
+configurations using [TerraHub CLI](https://github.com/TerraHubCorp/terrahub).
+We have opted to use YML format instead of HCL because it's easier and faster
+to customize and automate terraform runs (see `terrahub component` command).
 
 Run the following commands in terminal:
 ```shell
@@ -76,6 +97,8 @@ terrahub@0.0.1 (built: 2018-04-07T19:15:39.787Z)
 > NOTE: If you don't have TerraHub CLI, check out
 [installation guide](https://www.npmjs.com/package/terrahub)
 
+## Build Terraform Configurations
+
 Run the following commands in terminal:
 ```shell
 mkdir demo-terraform-automation-aws
@@ -87,6 +110,12 @@ Your output should be similar to the one below:
 ```
 ✅ Project successfully initialized
 ```
+
+> NOTE: If you want to jump directly to terraform automation part of the demo,
+instead of creating `demo-terraform-automation-aws` from scratch, clone current
+repository, follow the instructions for `Update Project Config` and skip down to
+`Visualize TerraHub Components`. This way you will fast forward through terrahub
+components creation and customization, and switch directly to the automation part.
 
 ## Create TerraHub Components from Templates
 
@@ -329,7 +358,7 @@ Your output should be similar to the one below:
 Run the following command in terminal:
 
 ```shell
-terrahub run -a -y
+terrahub run -y -a
 ```
 
 Your output should be similar to the one below:
