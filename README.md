@@ -97,7 +97,7 @@ terrahub@0.0.1 (built: 2018-04-07T19:15:39.787Z)
 > NOTE: If you don't have TerraHub CLI, check out
 [installation guide](https://www.npmjs.com/package/terrahub)
 
-## Build Terraform Configurations
+## Build Terraform Configurations from Scratch
 
 Run the following commands in terminal:
 ```shell
@@ -113,9 +113,10 @@ Your output should be similar to the one below:
 
 > NOTE: If you want to jump directly to terraform automation part of the demo,
 instead of creating `demo-terraform-automation-aws` from scratch, clone current
-repository, follow the instructions for `Update Project Config` and skip down to
-`Visualize TerraHub Components`. This way you will fast forward through terrahub
-components creation and customization, and switch directly to the automation part.
+repository, follow the instructions for `Update TerraHub's Project Config` and
+then jump down to `Visualize TerraHub Components`. This way you will fast forward
+through terrahub components creation and customization, and switch directly to
+automation part.
 
 ## Update TerraHub's Project Config
 
