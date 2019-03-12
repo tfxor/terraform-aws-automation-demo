@@ -6,13 +6,13 @@ corresponding terraform configurations:
 
 | AWS Resource | Terraform Resource | Link to TerraHub Config |
 |-----------------------|--------------------|-------------------------|
-| API Gateway Deployment | aws_api_gateway_deployment | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/api_gateway_deployment/.terrahub.yml#L9 |
-| API Gateway REST API | aws_api_gateway_rest_api | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/api_gateway_rest_api/.terrahub.yml#L9 |
-| IAM Role | aws_iam_role | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/iam_role/.terrahub.yml#L8 |
-| Lambda Function | aws_lambda_function | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/lambda/.terrahub.yml#L11 |
-| Security Group | aws_security_group | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/security_group/.terrahub.yml#L9 |
-| Subnet | aws_subnet | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/subnet_private/.terrahub.yml#L9 |
-| VPC | aws_vpc | https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/vpc/.terrahub.yml#L7 |
+| API Gateway Deployment | aws_api_gateway_deployment | [api_gateway_deployment/.terrahub.yml#L9](https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/api_gateway_deployment/.terrahub.yml#L9) |
+| API Gateway REST API | aws_api_gateway_rest_api | [api_gateway_rest_api/.terrahub.yml#L9](https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/api_gateway_rest_api/.terrahub.yml#L9) |
+| IAM Role | aws_iam_role | [iam_role/.terrahub.yml#L8](https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/iam_role/.terrahub.yml#L8) |
+| Lambda Function | aws_lambda_function | [lambda/.terrahub.yml#L11](https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/lambda/.terrahub.yml#L11) |
+| Security Group | aws_security_group | [security_group/.terrahub.yml#L9](https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/security_group/.terrahub.yml#L9) |
+| Subnet | aws_subnet | [subnet_private/.terrahub.yml#L9](https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/subnet_private/.terrahub.yml#L9) |
+| VPC | aws_vpc | [vpc/.terrahub.yml#L7](https://github.com/TerraHubCorp/demo-terraform-automation-aws/blob/master/vpc/.terrahub.yml#L7) |
 
 Follow below instructions to try this out in your own AWS Cloud account.
 
