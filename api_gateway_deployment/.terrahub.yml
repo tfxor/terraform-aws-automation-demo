@@ -30,8 +30,11 @@ component:
         value: '${aws_api_gateway_deployment.api_gateway_deployment.created_date}'
     terraform:
       backend:
-        local:
-          path: /tmp/.terrahub/local_backend/api_gateway_deployment/terraform.tfstate
+        s3:
+          bucket: data-lake-terrahub-us-east-1
+          key: terraform/mitocgroup/demo-terraform-automation-aws/api_gateway_deployment/terraform.tfstate
+          region: us-east-1
+          workspace_key_prefix: terraform_workspaces
     data:
       aws_api_gateway_rest_api:
         api_gateway_deployment:

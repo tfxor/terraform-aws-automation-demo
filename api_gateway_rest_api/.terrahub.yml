@@ -27,8 +27,11 @@ component:
         value: '${aws_api_gateway_rest_api.api_gateway_rest_api.created_date}'
     terraform:
       backend:
-        local:
-          path: /tmp/.terrahub/local_backend/api_gateway_rest_api/terraform.tfstate
+        s3:
+          bucket: data-lake-terrahub-us-east-1
+          key: terraform/mitocgroup/demo-terraform-automation-aws/api_gateway_rest_api/terraform.tfstate
+          region: us-east-1
+          workspace_key_prefix: terraform_workspaces
     data:
       template_file:
         swagger:

@@ -14,7 +14,8 @@ component:
           handler: demo.handler
           runtime: nodejs8.10
           role: '${data.terraform_remote_state.iam.arn}'
-          filename: '${local.component["path"]}/demo.zip'
+          s3_bucket: data-lake-terrahub-us-east-1
+          s3_key: deploy/mitocgroup/demo-terraform-automation-aws/lambda/demo.zip
           description: Managed by TerraHub
           memory_size: 512
           publish: false
@@ -52,33 +53,44 @@ component:
         value: '${aws_lambda_function.lambda.arn}'
     terraform:
       backend:
-        local:
-          path: /tmp/.terrahub/local_backend/lambda/terraform.tfstate
+        s3:
+          bucket: data-lake-terrahub-us-east-1
+          key: terraform/mitocgroup/demo-terraform-automation-aws/lambda/terraform.tfstate
+          region: us-east-1
+          workspace_key_prefix: terraform_workspaces
     data:
       terraform_remote_state:
         iam:
-          backend: local
+          backend: s3
           config:
-            path: /tmp/.terrahub/local_backend/iam_role/terraform.tfstate
+          - bucket: data-lake-terrahub-us-east-1
+            key: terraform/mitocgroup/demo-terraform-automation-aws/iam_role/terraform.tfstate
+            region: us-east-1
         subnet:
-          backend: local
+          backend: s3
           config:
-            path: /tmp/.terrahub/local_backend/subnet_private/terraform.tfstate
+          - bucket: data-lake-terrahub-us-east-1
+            key: terraform/mitocgroup/demo-terraform-automation-aws/subnet_private/terraform.tfstate
+            region: us-east-1
         sg:
-          backend: local
+          backend: s3
           config:
-            path: /tmp/.terrahub/local_backend/security_group/terraform.tfstate
+          - bucket: data-lake-terrahub-us-east-1
+            key: terraform/mitocgroup/demo-terraform-automation-aws/security_group/terraform.tfstate
+            region: us-east-1
 build:
   env:
     variables:
       THUB_ENV: dev
       THUB_LAMBDA_ZIP: demo.zip
       THUB_BUILD_PATH: ..
+      THUB_S3_PATH: "s3://data-lake-terrahub-us-east-1/deploy/mitocgroup/demo-terraform-automation-aws/lambda"
       THUB_BUILD_OK: true
   phases:
     post_build:
       commands:
         - 'echo "BUILD: Running post_build step"'
         - ./scripts/zip.sh $THUB_LAMBDA_ZIP $THUB_BUILD_PATH/demo.js
+        - ./scripts/upload.sh $THUB_LAMBDA_ZIP $THUB_S3_PATH/$THUB_LAMBDA_ZIP
       finally:
         - 'echo "BUILD: post_build step successful"'

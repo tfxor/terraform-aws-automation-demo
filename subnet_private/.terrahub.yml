@@ -20,16 +20,21 @@ component:
             "ThubEnv","default")}
     terraform:
       backend:
-        local:
-          path: /tmp/.terrahub/local_backend/subnet_private/terraform.tfstate
+        s3:
+          bucket: data-lake-terrahub-us-east-1
+          key: terraform/mitocgroup/demo-terraform-automation-aws/subnet_private/terraform.tfstate
+          region: us-east-1
+          workspace_key_prefix: terraform_workspaces
     data:
       aws_availability_zones:
         az: {}
       terraform_remote_state:
         vpc:
-          backend: local
+          backend: s3
           config:
-            path: /tmp/.terrahub/local_backend/vpc/terraform.tfstate
+          - bucket: data-lake-terrahub-us-east-1
+            key: terraform/mitocgroup/demo-terraform-automation-aws/vpc/terraform.tfstate
+            region: us-east-1
     output:
       id:
         value: '${aws_subnet.subnet_private.*.id}'

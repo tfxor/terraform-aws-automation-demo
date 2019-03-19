@@ -42,11 +42,16 @@ component:
         value: '${aws_security_group.security_group.arn}'
     terraform:
       backend:
-        local:
-          path: /tmp/.terrahub/local_backend/security_group/terraform.tfstate
+        s3:
+          bucket: data-lake-terrahub-us-east-1
+          key: terraform/mitocgroup/demo-terraform-automation-aws/security_group/terraform.tfstate
+          region: us-east-1
+          workspace_key_prefix: terraform_workspaces
     data:
       terraform_remote_state:
         vpc:
-          backend: local
+          backend: s3
           config:
-            path: /tmp/.terrahub/local_backend/vpc/terraform.tfstate
+          - bucket: data-lake-terrahub-us-east-1
+            key: terraform/mitocgroup/demo-terraform-automation-aws/vpc/terraform.tfstate
+            region: us-east-1

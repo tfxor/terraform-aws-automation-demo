@@ -48,5 +48,9 @@ component:
         value: '${aws_vpc.vpc.default_security_group_id}'
     terraform:
       backend:
-        local:
-          path: /tmp/.terrahub/local_backend/vpc/terraform.tfstate
+        s3:
+          bucket: data-lake-terrahub-us-east-1
+          key: terraform/mitocgroup/demo-terraform-automation-aws/vpc/terraform.tfstate
+          region: us-east-1
+          workspace_key_prefix: terraform_workspaces
+
