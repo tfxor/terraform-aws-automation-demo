@@ -21,4 +21,5 @@ echo $THUB_API
 echo $THUB_TOKEN
 
 THUB_API=$THUB_API THUB_TOKEN=$THUB_TOKEN terrahub run -y -b ${THUB_APPLY} ${THUB_ENV}
+terrahub run -y -d
 echo "Execution successful: from ${BRANCH_FROM} into ${BRANCH_TO}"
