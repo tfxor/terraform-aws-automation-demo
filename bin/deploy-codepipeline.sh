@@ -19,6 +19,7 @@ terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
 
 echo "terrahub run -y -b ${THUB_APPLY} ${THUB_ENV}"
 terrahub run -y -b ${THUB_APPLY} ${THUB_ENV}
-ls -Rla /home/demo-terrahub-automation-aws
+ls -Rla /home/demo-terraform-automation-aws
 
 echo "Execution successful: from ${BRANCH_FROM} into ${BRANCH_TO}"
+
