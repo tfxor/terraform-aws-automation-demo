@@ -19,5 +19,3 @@ terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
 
 terrahub run -y -b ${THUB_APPLY} ${THUB_ENV}
 
-echo "Execution successful: from ${BRANCH_FROM} into ${BRANCH_TO}"
-
