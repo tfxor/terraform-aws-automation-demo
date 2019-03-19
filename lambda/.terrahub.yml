@@ -2,10 +2,10 @@ component:
   name: lambda
   mapping:
     - .
-  dependsOn:
-    - ../iam_role
-    - ../security_group
-    - ../subnet_private
+  # dependsOn:
+  #   - ../iam_role
+  #   - ../security_group
+  #   - ../subnet_private
   template:
     resource:
       aws_lambda_function:
@@ -19,7 +19,7 @@ component:
           description: Managed by TerraHub
           memory_size: 512
           publish: false
-          source_code_hash: '${base64sha256(file("${local.component["path"]}/demo.zip"))}'
+          source_code_hash: '${base64sha256("${local.component["name"]}")}'
           timeout: 300
           vpc_config:
             security_group_ids:

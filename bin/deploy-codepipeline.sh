@@ -17,8 +17,7 @@ terrahub --version > /dev/null 2>&1 || { echo >&2 "terrahub is missing. aborting
 AWS_ACCOUNT_ID="$(aws sts get-caller-identity --output=text --query='Account')"
 terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
 
-terrahub run -y -b -a
-ls -Rla /home/demo-terraform-automation-aws
+terrahub run -y -b ${THUB_APPLY} ${THUB_ENV}
 
 echo "Execution successful: from ${BRANCH_FROM} into ${BRANCH_TO}"
 
