@@ -13,7 +13,7 @@ terraform:
   version: 0.11.11
 template:
   locals:
-    account_id: 600605919324
+    account_id: '600605919324'
     region: us-east-1
   provider:
     aws:
