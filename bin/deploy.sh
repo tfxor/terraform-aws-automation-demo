@@ -17,7 +17,7 @@ terrahub --version > /dev/null 2>&1 || { echo >&2 "terrahub is missing. aborting
 AWS_ACCOUNT_ID="$(aws sts get-caller-identity --output=text --query='Account')"
 terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
 
-terrahub configure -c template.terraform.backend -D -y -I "lambda|api"
+terrahub configure -c template.terraform.backend -D -y -I ".*"
 terrahub configure -c template.terraform.backend.s3.bucket="data-lake-terrahub-us-east-1"
 terrahub configure -c template.terraform.backend.s3.region="us-east-1"
 terrahub configure -c template.terraform.backend.s3.workspace_key_prefix="terraform_workspaces"
