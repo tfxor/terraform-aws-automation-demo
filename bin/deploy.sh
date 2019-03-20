@@ -18,4 +18,3 @@ AWS_ACCOUNT_ID="$(aws sts get-caller-identity --output=text --query='Account')"
 terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
 
 terrahub run -y -b ${THUB_APPLY} ${THUB_ENV}
-
