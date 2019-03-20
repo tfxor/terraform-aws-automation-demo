@@ -17,5 +17,16 @@ terrahub --version > /dev/null 2>&1 || { echo >&2 "terrahub is missing. aborting
 AWS_ACCOUNT_ID="$(aws sts get-caller-identity --output=text --query='Account')"
 terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
 
+terrahub configure -c template.terraform.backend -D -y -I "lambda|api"
+terrahub configure -c template.terraform.backend.s3.bucket="data-lake-terrahub-us-east-1"
+terrahub configure -c template.terraform.backend.s3.region="us-east-1"
+terrahub configure -c template.terraform.backend.s3.workspace_key_prefix="terraform_workspaces"
+terrahub configure -c template.terraform.backend.s3.key="terraform/terrahubcorp/demo-terraform-automation-aws/api_gateway_deployment/terraform.tfstate" -i "api_gateway_deployment"
+terrahub configure -c template.terraform.backend.s3.key="terraform/terrahubcorp/demo-terraform-automation-aws/api_gateway_rest_api/terraform.tfstate" -i "api_gateway_rest_api"
+terrahub configure -c template.terraform.backend.s3.key="terraform/terrahubcorp/demo-terraform-automation-aws/iam_role/terraform.tfstate" -i "iam_role"
+terrahub configure -c template.terraform.backend.s3.key="terraform/terrahubcorp/demo-terraform-automation-aws/lambda/terraform.tfstate" -i "lambda"
+terrahub configure -c template.terraform.backend.s3.key="terraform/terrahubcorp/demo-terraform-automation-aws/security_group/terraform.tfstate" -i "security_group"
+terrahub configure -c template.terraform.backend.s3.key="terraform/terrahubcorp/demo-terraform-automation-aws/subnet_private/terraform.tfstate" -i "subnet_private"
+terrahub configure -c template.terraform.backend.s3.key="terraform/terrahubcorp/demo-terraform-automation-aws/vpc/terraform.tfstate" -i "vpc"
+
 terrahub run -y -b ${THUB_APPLY} ${THUB_ENV}
-echo "Execution successful: from ${BRANCH_FROM} into ${BRANCH_TO}"
