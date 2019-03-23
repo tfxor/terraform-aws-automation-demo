@@ -6,7 +6,6 @@ export NODE_PATH="$(npm root -g)"
 
 if [ -z "${BRANCH_FROM}" ]; then BRANCH_FROM = "dev"; fi
 if [ -z "${BRANCH_TO}" ]; then BRANCH_TO = "dev"; fi
-if [ "${BRANCH_TO}" != "dev" ]; then THUB_ENV="-e ${BRANCH_TO}"; fi
 if [ "${THUB_STATE}" == "approved" ]; then THUB_APPLY="-a"; fi
 
 git --version > /dev/null 2>&1 || { echo >&2 "git is missing. aborting..."; exit 1; }
