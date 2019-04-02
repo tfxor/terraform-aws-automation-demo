@@ -2,6 +2,8 @@ component:
   name: iam_role
   mapping:
     - .
+    - ../iam_assume_policy.json.tpl
+    - ../iam_trust_policy.json.tpl
   template:
     resource:
       aws_iam_role:
