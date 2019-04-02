@@ -6,7 +6,6 @@ export NODE_PATH="$(npm root -g)"
 
 if [ -z "${BRANCH_FROM}" ]; then BRANCH_FROM = "dev"; fi
 if [ -z "${BRANCH_TO}" ]; then BRANCH_TO = "dev"; fi
-if [ "${BRANCH_TO}" != "dev" ]; then THUB_ENV="-e ${BRANCH_TO}"; fi
 if [ "${THUB_STATE}" == "approved" ]; then THUB_APPLY="-a"; fi
 
 git --version > /dev/null 2>&1 || { echo >&2 "git is missing. aborting..."; exit 1; }
@@ -61,5 +60,4 @@ terrahub configure -c component.template.data.terraform_remote_state.vpc.config.
 terrahub configure -c component.template.terraform.backend -D -y -i "vpc"
 terrahub configure -c component.template.terraform.backend.s3.key="terraform/terrahubcorp/demo-terraform-automation-aws/vpc/terraform.tfstate" -i "vpc"
 
-terrahub build -i lambda
-terrahub run -y -b ${THUB_APPLY} ${THUB_ENV}
+terrahub run -y -b ${THUB_APPLY}
