@@ -342,31 +342,17 @@ Project: demo-terraform-automation-aws
 
 ## Run TerraHub Automation
 
-### Prepare Source Code for Deployment
-
 Run the following command in terminal:
 
 ```shell
-terrahub build -i lambda
+terrahub run -y -a -b
 ```
 
 Your output should be similar to the one below:
 ```
 ```
 
-### Run TerraHub Automation
-
-Run the following command in terminal:
-
-```shell
-terrahub run -y -a
-```
-
-Your output should be similar to the one below:
-```
-```
-
-## Testing Deployed Cloud Resources
+## Test Deployed Cloud Resources
 
 Check if backend was deployed successfully. Run the following command in terminal:
 ```
