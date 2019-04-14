@@ -91,7 +91,7 @@ Your output should be similar to the one below:
 ```
 Usage: terrahub [command] [options]
 
-terrahub@0.0.1 (built: 2018-04-07T19:15:39.787Z)
+terrahub@0.0.1 (built: 2018-04-14T19:15:39.787Z)
 ```
 
 > NOTE: If you don't have TerraHub CLI, check out
