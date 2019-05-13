@@ -37,4 +37,4 @@ component:
         api_gateway_deployment:
           name: DemoApi7356626c
     tfvars:
-      api_gateway_deployment_stage_name: Deployed at
+      api_gateway_deployment_stage_name: 'Deployed at'

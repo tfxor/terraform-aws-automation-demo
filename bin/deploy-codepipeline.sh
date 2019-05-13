@@ -23,7 +23,7 @@ terrahub configure -c template.terraform.backend.s3.workspace_key_prefix="terraf
 terrahub configure -c component.template.terraform.backend -D -y -i "api_gateway_deployment"
 terrahub configure -c component.template.terraform.backend.s3.key="terraform/terrahubcorp/demo-terraform-automation-aws/api_gateway_deployment/terraform.tfstate" -i "api_gateway_deployment"
 terrahub configure -c component.template.tfvars -D -y -i "api_gateway_deployment"
-terrahub configure -c terraform.varFile[]="s3://data-lake-terrahub-us-east-1/tfvars/terrahubcorp/demo-terraform-automation-aws/api_gateway_deployment/default.tfvars" -i "api_gateway_deployment"
+terrahub configure -c terraform.varFile[0]="s3://data-lake-terrahub-us-east-1/tfvars/terrahubcorp/demo-terraform-automation-aws/api_gateway_deployment/default.tfvars" -i "api_gateway_deployment"
 terrahub configure -c component.template.terraform.backend -D -y -i "api_gateway_rest_api"
 terrahub configure -c component.template.terraform.backend.s3.key="terraform/terrahubcorp/demo-terraform-automation-aws/api_gateway_rest_api/terraform.tfstate" -i "api_gateway_rest_api"
 terrahub configure -c component.template.terraform.backend -D -y -i "iam_role"
