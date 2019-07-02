@@ -19,4 +19,4 @@ terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
 
 ./bin/backend-remote.sh
 
-terrahub run -y -b ${THUB_APPLY} ${GIT_DIFF}
+DEBUG=debug terrahub run -y -b ${THUB_APPLY} ${GIT_DIFF}
