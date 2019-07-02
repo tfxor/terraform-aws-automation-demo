@@ -13,6 +13,8 @@ git --version > /dev/null 2>&1 || { echo >&2 "git is missing. aborting..."; exit
 git checkout $BRANCH_TO
 git checkout $BRANCH_FROM
 
+cat ~/.terrahub/.terrahub.json
+
 terrahub --version > /dev/null 2>&1 || { echo >&2 "terrahub is missing. aborting..."; exit 1; }
 AWS_ACCOUNT_ID="$(aws sts get-caller-identity --output=text --query='Account')"
 terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
