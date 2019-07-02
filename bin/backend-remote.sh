@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export DEBUG=debug
+
 terrahub --version > /dev/null 2>&1 || { echo >&2 "terrahub is missing. aborting..."; exit 1; }
 terrahub configure -c template.terraform.backend.s3.bucket="data-lake-terrahub-us-east-1"
 terrahub configure -c template.terraform.backend.s3.region="us-east-1"
