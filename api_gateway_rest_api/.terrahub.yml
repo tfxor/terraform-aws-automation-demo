@@ -4,7 +4,7 @@ component:
     - .
     - ../api_swagger.json.tpl
   dependsOn:
-    - ../lambda
+    - lambda
   template:
     resource:
       aws_api_gateway_rest_api:
