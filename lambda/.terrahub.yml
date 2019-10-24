@@ -1,7 +1,5 @@
 component:
   name: lambda
-  mapping:
-    - .
   dependsOn:
     - iam_role
     - security_group
