@@ -1,7 +1,5 @@
 component:
   name: security_group
-  mapping:
-    - .
   dependsOn:
     - vpc
   template:
