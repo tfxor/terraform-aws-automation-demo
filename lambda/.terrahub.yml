@@ -1,11 +1,9 @@
 component:
   name: lambda
-  mapping:
-    - .
   dependsOn:
-    - ../iam_role
-    - ../security_group
-    - ../subnet_private
+    - iam_role
+    - security_group
+    - subnet_private
   template:
     resource:
       aws_lambda_function:
@@ -29,6 +27,15 @@ component:
             ${map("Description","Managed by TerraHub",
             "Name","demo-terraform-automation-aws", "ThubCode","7356626c",
             "ThubEnv","default")}
+    dynamic:
+      data:
+        terraform_remote_state:
+          - component: iam_role
+            name: iam
+          - component: security_group
+            name: sg
+          - component: subnet_private
+            name: subnet
     output:
       id:
         value: '${aws_lambda_function.lambda.id}'
@@ -54,20 +61,6 @@ component:
       backend:
         local:
           path: /tmp/.terrahub/local_backend/lambda/terraform.tfstate
-    data:
-      terraform_remote_state:
-        iam:
-          backend: local
-          config:
-            path: /tmp/.terrahub/local_backend/iam_role/terraform.tfstate
-        subnet:
-          backend: local
-          config:
-            path: /tmp/.terrahub/local_backend/subnet_private/terraform.tfstate
-        sg:
-          backend: local
-          config:
-            path: /tmp/.terrahub/local_backend/security_group/terraform.tfstate
 build:
   env:
     variables:

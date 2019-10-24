@@ -1,9 +1,7 @@
 component:
   name: subnet_private
-  mapping:
-    - .
   dependsOn:
-    - ../vpc
+    - vpc
   template:
     resource:
       aws_subnet:

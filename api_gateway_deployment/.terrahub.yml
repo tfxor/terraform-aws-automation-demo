@@ -1,9 +1,7 @@
 component:
   name: api_gateway_deployment
-  mapping:
-    - .
   dependsOn:
-    - ../api_gateway_rest_api
+    - api_gateway_rest_api
   template:
     resource:
       aws_api_gateway_deployment:
@@ -37,4 +35,4 @@ component:
         api_gateway_deployment:
           name: DemoApi7356626c
     tfvars:
-      api_gateway_deployment_stage_name: Deployed at
+      api_gateway_deployment_stage_name: 'Deployed at'

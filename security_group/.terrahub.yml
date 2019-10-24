@@ -1,9 +1,7 @@
 component:
   name: security_group
-  mapping:
-    - .
   dependsOn:
-    - ../vpc
+    - vpc
   template:
     resource:
       aws_security_group:
