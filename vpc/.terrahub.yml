@@ -1,7 +1,5 @@
 component:
   name: vpc
-  mapping:
-    - .
   template:
     resource:
       aws_vpc:
