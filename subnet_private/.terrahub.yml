@@ -3,7 +3,7 @@ component:
   mapping:
     - .
   dependsOn:
-    - ../vpc
+    - vpc
   template:
     resource:
       aws_subnet:
