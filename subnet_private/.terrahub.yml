@@ -1,7 +1,5 @@
 component:
   name: subnet_private
-  mapping:
-    - .
   dependsOn:
     - vpc
   template:
