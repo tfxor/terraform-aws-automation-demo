@@ -8,13 +8,13 @@ project:
     - '**/node_modules/*'
     - '**/.git/**'
 
-template:
-  terraform:
-    backend:
-      local:
-        path: /tmp/.terrahub/local_backend/demo-terraform-automation-aws/${tfvar.terrahub["component"]["name"]}/terraform.tfstate
-
 terraform:
   version: 0.12.19
   varFile:
     - default.tfvars
+
+template:
+  terraform:
+    backend:
+      local:
+        path: /tmp/.terrahub/local_backend/terraform-aws-automation-demo/${tfvar.terrahub["component"]["name"]}/terraform.tfstate
