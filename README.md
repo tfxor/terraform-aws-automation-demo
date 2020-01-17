@@ -184,3 +184,5 @@ Check if backend was deployed successfully. Run the following command in termina
 ```
 curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/demo
 ```
+
+> NOTE: If you receive `{"message": "Internal server error"}`, wait couple of seconds and try again.
