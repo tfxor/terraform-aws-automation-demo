@@ -2,7 +2,7 @@ project:
   name: demo-terraform-automation-aws
   code: 7356626c
   include:
-    - terraform
+    - .
   exclude:
     - '**/.terraform/*'
     - '**/node_modules/*'
