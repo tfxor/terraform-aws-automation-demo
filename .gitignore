@@ -10,4 +10,4 @@
 *.tfstate.*
 
 # Zipped lambda function
-terraform/lambda/demo.zip
+lambda/*.zip
