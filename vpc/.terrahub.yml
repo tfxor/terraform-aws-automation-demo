@@ -1,2 +1,4 @@
 component:
   name: vpc
+  sentinel:
+    - default.sentinel

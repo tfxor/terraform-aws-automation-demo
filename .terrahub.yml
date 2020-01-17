@@ -1,5 +1,5 @@
 project:
-  name: demo-terraform-automation-aws
+  name: terraform-aws-automation-demo
   code: 7356626c
   include:
     - .
@@ -9,27 +9,11 @@ project:
     - '**/.git/**'
 
 template:
-  locals:
-    region: us-east-1
-    account_id: 123456789012
-#  terraform:
-#    backend:
-#      s3:
-#        key: >-
-#          terraform/terrahubcorp/demo-terraform-automation-aws/${tfvar.terrahub["component"]["name"]}/terraform.tfstate
-#        workspace_key_prefix: terraform_workspaces
-#        bucket: data-lake-terrahub-us-east-1
-#        region: us-east-1
-#  terraform:
-#    backend:
-#      local:
-#        path: /tmp/.terrahub/local_backend/demo-terraform-automation-aws/${tfvar.terrahub["component"]["name"]}/terraform.tfstate
-#  provider:
-#    aws:
-#      version: ~> 2.44
-#      region: local.region
-#      allowed_account_ids:
-#        - local.account_id
+  terraform:
+    backend:
+      local:
+        path: /tmp/.terrahub/local_backend/demo-terraform-automation-aws/${tfvar.terrahub["component"]["name"]}/terraform.tfstate
+
 terraform:
   version: 0.12.19
   varFile:
