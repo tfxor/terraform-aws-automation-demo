@@ -1,3 +1,6 @@
+# IDEs
+.idea
+
 #  Local hidden directories
 **/.terraform/*
 **/.backup/*
@@ -7,4 +10,4 @@
 *.tfstate.*
 
 # Zipped lambda function
-lambda/demo.*
+terraform/lambda/demo.zip

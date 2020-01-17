@@ -11,7 +11,7 @@ project:
 template:
   locals:
     region: us-east-1
-    account_id: 123456789012
+    account_id: 300672210419
 #  terraform:
 #    backend:
 #      s3:
@@ -24,12 +24,12 @@ template:
 #    backend:
 #      local:
 #        path: /tmp/.terrahub/local_backend/demo-terraform-automation-aws/${tfvar.terrahub["component"]["name"]}/terraform.tfstate
-  provider:
-    aws:
-      version: ~> 2.44
-      region: local.region
-      allowed_account_ids:
-        - local.account_id
+#  provider:
+#    aws:
+#      version: ~> 2.44
+#      region: local.region
+#      allowed_account_ids:
+#        - local.account_id
 terraform:
   version: 0.12.19
   varFile:
