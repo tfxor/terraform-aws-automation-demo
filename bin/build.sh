@@ -26,7 +26,7 @@ if [ ! -z "${CICD_EXCLUDE}" ]; then CICD_OPTS="${CICD_OPTS} -X \"^(${CICD_EXCLUD
 
 echo "EXEC: aws sts get-caller-identity"
 AWS_ACCOUNT_ID="$(aws sts get-caller-identity --output=text --query='Account')"
-terrahub configure -c template.local.account_id="${AWS_ACCOUNT_ID}"
+terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
 
 echo "EXEC: terrahub run -y -p include ${CICD_OPTS}"
 terrahub run -y -p include ${CICD_OPTS}
