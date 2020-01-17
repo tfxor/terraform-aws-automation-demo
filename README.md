@@ -176,13 +176,28 @@ terrahub run -y -a -b
 
 Your output should be similar to the one below:
 ```
+💡 THUB_TOKEN is not provided.
+Project: terraform-aws-automation-demo | Components: api_gateway_deployment, api_gateway_rest_api, iam_role, lambda, security_group, subnet_private, vpc
+Option 'auto-approve' is enabled, therefore 'run' action is executed with no confirmation.
+💡 [iam_role] terraform init -no-color -force-copy -input=false .
+
+[[REDACTED]]
+
+[api_gateway_deployment] State path: /tmp/.terrahub/local_backend/terraform-aws-automation-demo/api_gateway_deployment/terraform.tfstate
+
+Outputs:
+
+[api_gateway_deployment] execution_arn = arn:aws:execute-api:us-east-1:[[REDACTED]]:[[REDACTED]]/demo
+[api_gateway_deployment] id = [[REDACTED]]
+[api_gateway_deployment] invoke_url = https://[[REDACTED]].execute-api.us-east-1.amazonaws.com/demo
+✅ Done
 ```
 
 ## Test Deployed Cloud Resources
 
-Check if backend was deployed successfully. Run the following command in terminal:
+Check if backend was deployed successfully. Run the following command in terminal (replace [[REDACTED]] with your value):
 ```
-curl https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/demo
+curl https://[[REDACTED]].execute-api.us-east-1.amazonaws.com/demo
 ```
 
-> NOTE: If you receive `{"message": "Internal server error"}`, wait couple of seconds and try again.
+> NOTE: If you receive `{"message": "Internal server error"}`, wait couple of seconds/minutes and try again.
