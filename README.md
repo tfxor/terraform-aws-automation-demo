@@ -77,10 +77,8 @@ export AWS_DEFAULT_REGION="$(aws configure get region --output=text)"
 
 ## Terraform Automation and Orchestration Tool
 
-The next couple of paragraphs are show casing the process of creating terraform
-configurations using [TerraHub CLI](https://github.com/TerraHubCorp/terrahub).
-We have opted to use YML format instead of HCL because it's easier and faster
-to customize and automate terraform runs (see `terrahub component` command).
+The next couple of paragraphs are showcasing the process of creating terrahub
+automation process using [TerraHub CLI](https://github.com/TerraHubCorp/terrahub).
 
 Run the following commands in terminal:
 ```shell
@@ -97,14 +95,7 @@ terrahub@0.0.1 (built: 2018-04-14T19:15:39.787Z)
 > NOTE: If you don't have TerraHub CLI, check out this
 [installation guide](https://www.npmjs.com/package/terrahub)
 
-## Build TerraHub Automation from Scratch
-
-> NOTE: If you want to jump directly to terraform automation part of the demo,
-instead of creating `terraform-aws-automation-demo` from scratch, clone current
-repository, follow the instructions for `Update TerraHub's Project Config` and
-then jump down to `Visualize TerraHub Components`. This way you will fast forward
-through terrahub components creation and customization, and switch directly to
-automation part.
+## Configure Automation using TerraHub
 
 Run the following commands in terminal:
 ```shell
@@ -112,26 +103,35 @@ git clone https://github.com/TerraHubCorp/terraform-aws-automation-demo.git
 cd terraform-aws-automation-demo
 rm **/.terrahub.yml
 terrahub component -n api_gateway_deployment -d ./api_gateway_deployment
-terrahub configure -i api_gateway_deployment -c component.dependsOn[]='api_gateway_rest_api'
 terrahub component -n api_gateway_rest_api -d ./api_gateway_rest_api
-terrahub configure -i api_gateway_rest_api -c component.dependsOn[]='lambda'
 terrahub component -n iam_role -d ./iam_role
-terrahub configure -i iam_role -c component.mapping[]='../iam_assume_policy.json.tpl'
-terrahub configure -i iam_role -c component.mapping[]='../iam_trust_policy.json.tpl'
 terrahub component -n lambda -d ./lambda
-terrahub configure -i lambda -c component.dependsOn[]='iam_role'
-terrahub configure -i lambda -c component.dependsOn[]='security_group'
-terrahub configure -i lambda -c component.dependsOn[]='subnet_private'
 terrahub component -n security_group -d ./security_group
-terrahub configure -i security_group -c component.dependsOn[]='vpc'
 terrahub component -n subnet_private -d ./subnet_private
-terrahub configure -i subnet_private -c component.dependsOn[]='vpc'
 terrahub component -n vpc -d ./vpc
 ```
 
 Your output should be similar to the one below:
 ```
-✅ Project successfully initialized
+✅ Component successfully created
+```
+
+## Configure Dependencies between TerraHub Components
+
+Run the following commands in terminal:
+```shell
+terrahub configure -i api_gateway_deployment -c component.dependsOn[]='api_gateway_rest_api'
+terrahub configure -i api_gateway_rest_api -c component.dependsOn[]='lambda'
+terrahub configure -i lambda -c component.dependsOn[]='iam_role'
+terrahub configure -i lambda -c component.dependsOn[]='security_group'
+terrahub configure -i lambda -c component.dependsOn[]='subnet_private'
+terrahub configure -i security_group -c component.dependsOn[]='vpc'
+terrahub configure -i subnet_private -c component.dependsOn[]='vpc'
+```
+
+Your output should be similar to the one below:
+```
+✅ Done
 ```
 
 ## Update Project Config in TerraHub
