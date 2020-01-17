@@ -12,7 +12,7 @@ resource "aws_lambda_function" "lambda" {
 
   tags = {
     Description = "Managed by TerraHub",
-    Name        = "demo-terraform-automation-aws"
+    Name        = "terraform-aws-automation-demo"
     ThubCode    = "7356626c",
     ThubEnv     = "default"
   }

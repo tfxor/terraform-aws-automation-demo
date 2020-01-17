@@ -6,7 +6,7 @@ resource "aws_subnet" "subnet_private" {
   availability_zone               = element(data.aws_availability_zones.az.names, count.index)
   map_public_ip_on_launch         = false
   tags = {
-    "Name"        = "demo-terraform-automation-aws",
+    "Name"        = "terraform-aws-automation-demo",
     "Description" = "Managed by TerraHub",
     "ThubCode"    = "7356626c",
     "ThubEnv"     = "default"

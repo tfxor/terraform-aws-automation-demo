@@ -1,6 +1,6 @@
 resource "aws_security_group" "security_group" {
   description = "default VPC security group"
-  name        = "demo-terraform-automation-aws"
+  name        = "terraform-aws-automation-demo"
   vpc_id      = data.terraform_remote_state.vpc.outputs.thub_id
 
   egress {
@@ -21,7 +21,7 @@ resource "aws_security_group" "security_group" {
 
   tags = {
     Description = "Managed by TerraHub",
-    Name        = "demo-terraform-automation-aws",
+    Name        = "terraform-aws-automation-demo",
     ThubCode    = "7356626c",
     ThubEnv     = "default"
   }

@@ -6,5 +6,5 @@ resource "aws_vpc" "vpc" {
   enable_dns_hostnames             = true
   enable_dns_support               = true
   instance_tenancy                 = "default"
-  tags                             = map("Description", "Managed by TerraHub", "Name", "demo-terraform-automation-aws", "ThubCode", "7356626c", "ThubEnv", "default")
+  tags                             = map("Description", "Managed by TerraHub", "Name", "terraform-aws-automation-demo", "ThubCode", "7356626c", "ThubEnv", "default")
 }
