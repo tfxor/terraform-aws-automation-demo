@@ -1,0 +1,4 @@
+component:
+  name: api_gateway_deployment
+  dependsOn:
+    - api_gateway_rest_api

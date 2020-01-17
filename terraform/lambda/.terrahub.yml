@@ -1,0 +1,20 @@
+component:
+  name: lambda
+  dependsOn:
+    - iam_role
+    - security_group
+    - subnet_private
+build:
+  env:
+    variables:
+      THUB_ENV: dev
+      THUB_LAMBDA_ZIP: demo.zip
+      THUB_BUILD_PATH: ../..
+      THUB_BUILD_OK: true
+  phases:
+    post_build:
+      commands:
+        - 'echo "BUILD: Running post_build step"'
+        - ./scripts/zip.sh $THUB_LAMBDA_ZIP $THUB_BUILD_PATH/demo.js
+      finally:
+        - 'echo "BUILD: post_build step successful"'

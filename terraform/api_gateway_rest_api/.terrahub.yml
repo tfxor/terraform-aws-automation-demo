@@ -1,0 +1,4 @@
+component:
+  name: api_gateway_rest_api
+  dependsOn:
+    - lambda

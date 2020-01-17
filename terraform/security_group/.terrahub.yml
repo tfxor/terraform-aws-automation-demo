@@ -1,0 +1,4 @@
+component:
+  name: security_group
+  dependsOn:
+    - vpc

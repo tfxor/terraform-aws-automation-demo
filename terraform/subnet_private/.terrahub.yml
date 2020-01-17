@@ -1,0 +1,4 @@
+component:
+  name: subnet_private
+  dependsOn:
+    - vpc
