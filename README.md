@@ -95,7 +95,7 @@ terrahub@0.0.1 (built: 2018-04-14T19:15:39.787Z)
 > NOTE: If you don't have TerraHub CLI, check out this
 [installation guide](https://www.npmjs.com/package/terrahub)
 
-## Configure Automation using TerraHub
+## Configure Terraform Automation using TerraHub
 
 Run the following commands in terminal:
 ```shell
@@ -134,7 +134,7 @@ Your output should be similar to the one below:
 ✅ Done
 ```
 
-## Update Project Config in TerraHub
+## Configure Active AWS Account and AWS Region
 
 Run the following commands in terminal:
 ```shell
