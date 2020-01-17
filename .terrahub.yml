@@ -1,5 +1,5 @@
 project:
-  name: demo-terraform-automation-aws
+  name: terraform-aws-automation-demo
   code: 7356626c
   include:
     - .
@@ -8,17 +8,13 @@ project:
     - '**/node_modules/*'
     - '**/.git/**'
 
+template:
+  terraform:
+    backend:
+      local:
+        path: /tmp/.terrahub/local_backend/demo-terraform-automation-aws/${tfvar.terrahub["component"]["name"]}/terraform.tfstate
+
 terraform:
+  version: 0.12.19
   varFile:
     - default.tfvars
-  version: 0.11.13
-
-template:
-  locals:
-    account_id: 123456789012
-    region: us-east-1
-  provider:
-    aws:
-      region: '${local.region}'
-      allowed_account_ids:
-        - '${local.account_id}'

@@ -1,0 +1,35 @@
+allowed_tf_versions = [
+	"0.12.18",
+]
+
+allowed_cidr_blocks = [
+	"11.0.0.0/23",
+]
+
+tf_version = rule {
+	input.terraform_version in allowed_tf_versions
+}
+
+cidr_block_check = func() {
+    if destroys() {
+        return (true)
+    }
+    for input.planned_values.root_module.resources as resource {
+        if resource.values.cidr_block not in allowed_cidr_blocks {
+            print("Cidr Blocks are not allowed")
+            return (false)
+        }
+    }
+    return (true)
+}
+
+destroys = func() {
+	for input.resource_changes as change {
+		if change.change.actions contains "destroy" or change.change.actions contains "delete" {
+			return (true)
+		}
+	}
+	return (false)
+}
+
+main = rule { tf_version and cidr_block_check() }
