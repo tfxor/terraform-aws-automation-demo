@@ -195,7 +195,7 @@ Outputs:
 
 ## Test Deployed Cloud Resources
 
-Check if backend was deployed successfully. Run the following command in terminal (replace [[REDACTED]] with your value):
+Check if backend was deployed successfully. Run the following command in terminal (replace `[[REDACTED]]` with your value):
 ```
 curl https://[[REDACTED]].execute-api.us-east-1.amazonaws.com/demo
 ```
