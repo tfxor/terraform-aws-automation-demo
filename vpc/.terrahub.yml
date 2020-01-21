@@ -1,4 +1,8 @@
 component:
   name: vpc
-  sentinel:
-    - default.sentinel
+
+hook:
+  apply:
+    sentinel:
+      path: [ default.sentinel ]
+      version: 0.14.2
