@@ -1,7 +1,5 @@
 component:
   name: vpc
-  sentinel:
-    - default.sentinel
 
 hook:
   apply:
