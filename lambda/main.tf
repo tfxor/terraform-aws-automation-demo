@@ -1,7 +1,7 @@
 resource "aws_lambda_function" "lambda" {
   function_name    = "DemoAWSLambda7356626c"
   description      = "Managed by TerraHub"
-  role             = data.terraform_remote_state.iam.outputs.arn
+  role             = lookup(data.terraform_remote_state.iam.outputs, "arn", "Is not set!")
   timeout          = 300
   memory_size      = 512
   runtime          = "nodejs12.x"
@@ -19,8 +19,8 @@ resource "aws_lambda_function" "lambda" {
 
   vpc_config {
     security_group_ids = [
-      data.terraform_remote_state.sg.outputs.thub_id
+      lookup(data.terraform_remote_state.sg.outputs, "thub_id", "Is not set!")
     ]
-    subnet_ids = data.terraform_remote_state.subnet.outputs.thub_id
+    subnet_ids = lookup(data.terraform_remote_state.subnet.outputs, "thub_id", "Is not set!")
   }
 }

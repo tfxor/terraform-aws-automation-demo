@@ -1,7 +1,7 @@
 resource "aws_security_group" "security_group" {
   description = "default VPC security group"
   name        = "terraform-aws-automation-demo"
-  vpc_id      = data.terraform_remote_state.vpc.outputs.thub_id
+  vpc_id      = lookup(data.terraform_remote_state.vpc.outputs, "thub_id", "Is not set!")
 
   egress {
     to_port     = 0
