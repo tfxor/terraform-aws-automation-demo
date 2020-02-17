@@ -9,7 +9,7 @@ project:
     - '**/.git/**'
 
 terraform:
-  version: 0.12.19
+  version: 0.12.20
   varFile:
     - default.tfvars
 
@@ -20,4 +20,5 @@ template:
   terraform:
     backend:
       local:
-        path: /tmp/.terrahub/local_backend/terraform-aws-automation-demo/${tfvar.terrahub["component"]["name"]}/terraform.tfstate
+        path: >-
+          /tmp/.terrahub/local_backend/terraform-aws-automation-demo/${tfvar.terrahub["component"]["name"]}/terraform.tfstate
