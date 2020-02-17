@@ -9,7 +9,6 @@ project:
     - '**/.git/**'
 
 terraform:
-  cloudAccount: mitocgroup
   version: 0.12.20
   varFile:
     - default.tfvars
