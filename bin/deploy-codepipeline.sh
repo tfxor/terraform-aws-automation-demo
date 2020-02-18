@@ -19,4 +19,4 @@ terrahub --version > /dev/null 2>&1 || { echo >&2 "terrahub is missing. aborting
 AWS_ACCOUNT_ID="$(aws sts get-caller-identity --output=text --query='Account')"
 terrahub configure -c template.locals.account_id="${AWS_ACCOUNT_ID}"
 
-terrahub run -y -b ${THUB_APPLY} ${GIT_DIFF}
+terrahub run -y -b ${THUB_APPLY}
