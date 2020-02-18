@@ -4,10 +4,10 @@ aws --version > /dev/null 2>&1 || { echo >&2 "aws is missing. aborting..."; exit
 npm --version > /dev/null 2>&1 || { echo >&2 "npm is missing. aborting..."; exit 1; }
 export NODE_PATH="$(npm root -g)"
 
-if [ -z "${BRANCH_FROM}" ]; then BRANCH_FROM = "dev"; fi
-if [ -z "${BRANCH_TO}" ]; then BRANCH_TO = "dev"; fi
-if [ "${THUB_STATE}" == "approved" ]; then THUB_APPLY="-a"; fi
-if [ "${BRANCH_TO}" != "${BRANCH_FROM}" ]; then GIT_DIFF="-g ${BRANCH_TO}...${BRANCH_FROM}"; fi
+if [[ -z "${BRANCH_FROM}" ]]; then BRANCH_FROM = "dev"; fi
+if [[ -z "${BRANCH_TO}" ]]; then BRANCH_TO = "dev"; fi
+if [[ "${THUB_STATE}" =~ "approve" ]]; then THUB_APPLY="-a"; fi
+if [[ "${BRANCH_TO}" != "${BRANCH_FROM}" ]]; then GIT_DIFF="-g ${BRANCH_TO}...${BRANCH_FROM}"; fi
 
 git --version > /dev/null 2>&1 || { echo >&2 "git is missing. aborting..."; exit 1; }
 git checkout $BRANCH_TO
