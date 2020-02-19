@@ -1,5 +1,5 @@
 allowed_tf_versions = [
-	"0.12.18",
+	"0.12.20",
 ]
 
 allowed_cidr_blocks = [

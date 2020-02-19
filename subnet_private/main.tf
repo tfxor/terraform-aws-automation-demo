@@ -1,5 +1,5 @@
 resource "aws_subnet" "subnet_private" {
-  vpc_id                          = data.terraform_remote_state.vpc.outputs.thub_id
+  vpc_id                          = lookup(data.terraform_remote_state.vpc.outputs, "thub_id", "Is not set!")
   cidr_block                      = cidrsubnet("11.0.1.0/24", 4, count.index)
   count                           = length(data.aws_availability_zones.az.names)
   assign_ipv6_address_on_creation = false
